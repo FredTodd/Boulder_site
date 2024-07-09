@@ -14,7 +14,7 @@ function Login() {
             setToken(data.token);
             setMessage('Login successful');
         } catch (error) {
-            setMessage('Error logging in');
+            setMessage(`Error logging in: ${error.message}`);
         }
     };
 

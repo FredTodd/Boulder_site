@@ -13,7 +13,7 @@ function Register() {
             await register(username, email, password);
             setMessage('User registered successfully');
         } catch (error) {
-            setMessage('Error registering user');
+            setMessage(`Error registering user: ${error.message}`);
         }
     };
 
