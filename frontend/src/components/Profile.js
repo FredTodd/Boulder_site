@@ -1,24 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import Navbar from './Navbar';
 
 const Profile = () => {
   const [username, setUsername] = useState('');
   const [bio, setBio] = useState('');
   const [profilePicture, setProfilePicture] = useState('');
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile`, {
-          headers: { Authorization: token }
+        if (!token) {
+          setError('No token found. Please log in.');
+          return;
+        }
+
+        const apiUrl = process.env.REACT_APP_API_URL;
+        console.log('API URL:', apiUrl); // Log the API URL
+        console.log('Token:', token); // Log the token
+
+        const response = await axios.get(`${apiUrl}/profile`, {
+          headers: { Authorization: `Bearer ${token}` }
         });
+
         const { username, bio, profile_picture } = response.data;
         setUsername(username);
         setBio(bio);
         setProfilePicture(profile_picture);
       } catch (error) {
+        console.error('Error fetching profile:', error);
         setError('Error fetching profile data');
       }
     };
@@ -26,39 +40,19 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    try {
-      const token = localStorage.getItem('token');
-      await axios.put(`${process.env.REACT_APP_API_URL}/profile`, { username, bio, profile_picture: profilePicture }, {
-        headers: { Authorization: token }
-      });
-      setError('');
-      // Optionally, show a success message
-    } catch (error) {
-      setError('Error updating profile');
-    }
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
+      <Navbar />
+      <h1>Profile</h1>
       <div>
-        <label>Username:</label>
-        <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
-      </div>
-      <div>
-        <label>Bio:</label>
-        <input type="text" value={bio} onChange={(e) => setBio(e.target.value)} />
-      </div>
-      <div>
-        <label>Profile Picture URL:</label>
-        <input type="text" value={profilePicture} onChange={(e) => setProfilePicture(e.target.value)} />
+        <img src={profilePicture} alt="Profile" />
+        <p>Username: {username}</p>
+        <p>Bio: {bio}</p>
       </div>
       {error && <p>{error}</p>}
-      <button type="submit">Update Profile</button>
-    </form>
+      <button onClick={() => navigate('/update-profile')}>Update Profile</button>
+    </div>
   );
 };
 
 export default Profile;
-

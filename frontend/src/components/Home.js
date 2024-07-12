@@ -1,26 +1,19 @@
 import React from 'react';
-import { Link, Navigate } from 'react-router-dom';
+import Navbar from './Navbar';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-  const getToken = () => localStorage.getItem('token');
+  const navigate = useNavigate();
 
-  if (getToken()) {
-    return (
-      <div>
-        <h1>Welcome to Boulder Site</h1>
-        <p>You are logged in.</p>
-        <p>Feel free to explore the site and log your climbs.</p>
-      </div>
-    );
-  }
+  const handleLogClimb = () => {
+    navigate('/log-climb');
+  };
 
   return (
     <div>
-      <h1>Welcome to Boulder Site</h1>
-      <p>Please choose an option:</p>
-      <Link to="/register">Register</Link>
-      <br />
-      <Link to="/login">Login</Link>
+      <Navbar />
+      <h1>Welcome to the Climbing Log Site</h1>
+      <button onClick={handleLogClimb}>Log a Climb</button>
     </div>
   );
 };
