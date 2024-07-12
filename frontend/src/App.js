@@ -1,29 +1,36 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import Register from './Register';
-import Login from './Login';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import Register from './components/Register';
+import Login from './components/Login';
+import ProtectedRoute from './components/ProtectedRoute';
+import ProtectedPage from './components/ProtectedPage';
+import Profile from './components/Profile';
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import SuccessfullyRegistered from './components/SuccessfullyRegistered';
 
 function App() {
-    return (
-        <Router>
-            <div>
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to="/register">Register</Link>
-                        </li>
-                        <li>
-                            <Link to="/login">Login</Link>
-                        </li>
-                    </ul>
-                </nav>
-                <Routes>
-                    <Route path="/register" element={<Register />} />
-                    <Route path="/login" element={<Login />} />
-                </Routes>
-            </div>
-        </Router>
-    );
+  const getToken = () => localStorage.getItem('token');
+
+  return (
+    <>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/successfully-registered" element={<SuccessfullyRegistered />} />
+        <Route path="/profile" element={<ProtectedRoute component={Profile} />} />
+        <Route path="/protected" element={<ProtectedRoute component={ProtectedPage} />} />
+        <Route
+          path="*"
+          element={
+            getToken() ? <Navigate to="/profile" /> : <Navigate to="/login" />
+          }
+        />
+      </Routes>
+    </>
+  );
 }
 
 export default App;
