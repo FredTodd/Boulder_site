@@ -1,10 +1,14 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
-const getToken = () => localStorage.getItem('token');
-
 const ProtectedRoute = ({ component: Component, ...rest }) => {
-  return getToken() ? <Component {...rest} /> : <Navigate to="/login" />;
+  const isAuthenticated = !!localStorage.getItem('token');
+
+  return isAuthenticated ? (
+    <Component {...rest} />
+  ) : (
+    <Navigate to="/login" state={{ message: 'You must log in before logging a climb' }} />
+  );
 };
 
 export default ProtectedRoute;

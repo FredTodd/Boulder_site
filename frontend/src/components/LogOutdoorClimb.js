@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Navbar from './Navbar';
 
 const LogOutdoorClimb = () => {
   const [location, setLocation] = useState('');
@@ -35,7 +34,6 @@ const LogOutdoorClimb = () => {
 
   return (
     <div>
-      <Navbar />
       <h1>Log Outdoor Climb</h1>
       <form onSubmit={handleSubmit}>
         <div>

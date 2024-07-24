@@ -1,24 +1,50 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import AuthContext from '../contexts/AuthContext';
 
 const Navbar = () => {
+  const { isAuthenticated, logout } = useContext(AuthContext);
+  const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
-  const token = localStorage.getItem('token');
+  const location = useLocation();
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
+  const toggleDropdown = () => {
+    setShowDropdown(!showDropdown);
+  };
+
+  const handleLoginClick = () => {
+    setShowDropdown(false);
     navigate('/login');
   };
 
+  const handleRegisterClick = () => {
+    setShowDropdown(false);
+    navigate('/register');
+  };
+
+  const hideAuthOptions = location.pathname === '/login' || location.pathname === '/register';
+
   return (
     <nav>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        {!token && <li><Link to="/register">Register</Link></li>}
-        {!token && <li><Link to="/login">Login</Link></li>}
-        {token && <li><Link to="/profile">Profile</Link></li>}
-        {token && <li><button onClick={handleLogout}>Logout</button></li>}
-      </ul>
+      <Link to="/">Home</Link>
+      {isAuthenticated ? (
+        <>
+          <Link to="/profile">Profile</Link>
+          <button onClick={logout}>Logout</button>
+        </>
+      ) : (
+        !hideAuthOptions && (
+          <div>
+            <button onClick={toggleDropdown}>Login/Register</button>
+            {showDropdown && (
+              <div className="dropdown">
+                <button onClick={handleLoginClick}>Login</button>
+                <button onClick={handleRegisterClick}>Register</button>
+              </div>
+            )}
+          </div>
+        )
+      )}
     </nav>
   );
 };

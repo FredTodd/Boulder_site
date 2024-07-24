@@ -36,3 +36,51 @@
     transform: rotate(360deg);
   }
 }
+
+/* Add your existing styles here */
+
+/* Add your existing styles here */
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #333;
+  color: #fff;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 1rem;
+}
+
+nav button {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  top: 3rem;
+  right: 1rem;
+}
+
+.dropdown button {
+  display: block;
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.dropdown button:hover {
+  text-decoration: underline;
+}

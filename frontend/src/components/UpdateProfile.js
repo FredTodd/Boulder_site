@@ -20,14 +20,14 @@ const UpdateProfile = () => {
         }
 
         const apiUrl = process.env.REACT_APP_API_URL;
-        const response = await axios.get(`${apiUrl}/profile`, {
+        const response = await axios.get(`${apiUrl}/auth/profile`, {
           headers: { Authorization: `Bearer ${token}` }
         });
 
         const { username, bio, profile_picture } = response.data;
-        setUsername(username);
-        setBio(bio);
-        setProfilePicture(profile_picture);
+        setUsername(username || '');
+        setBio(bio || '');
+        setProfilePicture(profile_picture || '');
       } catch (error) {
         console.error('Error fetching profile:', error);
         setError('Error fetching profile data');
@@ -48,7 +48,7 @@ const UpdateProfile = () => {
 
       const apiUrl = process.env.REACT_APP_API_URL;
 
-      await axios.put(`${apiUrl}/profile`, { username, bio, profile_picture: profilePicture }, {
+      await axios.put(`${apiUrl}/auth/profile`, { username, bio, profile_picture: profilePicture }, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setError('');
