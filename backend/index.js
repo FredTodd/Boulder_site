@@ -5,7 +5,7 @@ const sequelize = require('./config/database');
 const authMiddleware = require('./middleware/authMiddleware');
 const IndoorClimb = require('./models/IndoorClimb');
 const OutdoorClimb = require('./models/OutdoorClimb');
-const User = require('./models/User'); // Ensure User model is imported
+const User = require('./models/User');
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Sync database
-sequelize.sync({ force: true }).then(() => { // force: true drops tables if they already exist
+sequelize.sync({ force: false }).then(() => {
   console.log('Database & tables created!');
 }).catch(error => {
   console.error('Error creating database & tables:', error);
@@ -33,7 +33,7 @@ app.post('/climbs/indoor', authMiddleware, async (req, res) => {
     const climb = await IndoorClimb.create({ user_id: userId, location, grade, personal_rating, notes, climb_date });
     res.status(201).json(climb);
   } catch (error) {
-    console.error('Error logging indoor climb:', error); // Add error logging
+    console.error('Error logging indoor climb:', error);
     res.status(400).json({ message: 'Error logging indoor climb', error: error.message });
   }
 });
@@ -45,7 +45,7 @@ app.post('/climbs/outdoor', authMiddleware, async (req, res) => {
     const climb = await OutdoorClimb.create({ user_id: userId, location, route_name, grade, personal_rating, notes, climb_date });
     res.status(201).json(climb);
   } catch (error) {
-    console.error('Error logging outdoor climb:', error); // Add error logging
+    console.error('Error logging outdoor climb:', error);
     res.status(400).json({ message: 'Error logging outdoor climb', error: error.message });
   }
 });

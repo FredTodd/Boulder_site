@@ -1,0 +1,21 @@
+.right-sidebar {
+    width: 250px;
+    padding: 1rem;
+    background-color: #DCE3E4; /* General backing color */
+    height: calc(100vh - 80px); /* Adjust height based on header height */
+    border-left: 1px solid #424051; /* Secondary color for border */
+    overflow-y: auto; /* Allow vertical scrolling if content overflows */
+  }
+  
+  .right-sidebar-content {
+    border: 1px solid #424051; /* Secondary color for border */
+    padding: 1rem;
+    border-radius: 4px;
+    background-color: #567934; /* Green background */
+    width: 100%; /* Ensure sections take full width of the sidebar */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  }
+  
+  h2, p {
+    color: #424051; /* Secondary color for text */
+  }

@@ -1,0 +1,16 @@
+.navbar {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #424051; /* Secondary color for text */
+  padding: 0.5rem 1rem;
+}
+
+.navbar a:hover {
+  background-color: #567934; /* General backing color for hover */
+  border-radius: 4px;
+  color: white; /* White text on hover */
+}

@@ -1,62 +1,82 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { logIndoorClimb } from '../services/climbService'; // Assuming you have a service for API calls
+import './LogClimb.css';
 
 const LogIndoorClimb = () => {
   const [location, setLocation] = useState('');
   const [grade, setGrade] = useState('');
-  const [personalRating, setPersonalRating] = useState('');
+  const [personalRating, setPersonalRating] = useState(5); // Default value to 5
   const [notes, setNotes] = useState('');
-  const [climbDate, setClimbDate] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [date, setDate] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const token = localStorage.getItem('token');
-      await axios.post(`${process.env.REACT_APP_API_URL}/climbs/indoor`, { location, grade, personal_rating: personalRating, notes, climb_date: climbDate }, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      setLocation('');
-      setGrade('');
-      setPersonalRating('');
-      setNotes('');
-      setClimbDate('');
-      setError('');
-      setSuccess('Indoor climb logged successfully!');
+      await logIndoorClimb({ location, grade, personalRating, notes, date });
+      navigate('/profile'); // Redirect after successful submission
     } catch (error) {
-      setError('Error logging indoor climb');
-      setSuccess('');
+      console.error('Error logging indoor climb:', error);
     }
   };
 
   return (
-    <div>
+    <div className="log-climb-container">
+      <div className="switch-links">
+        <Link to="/log-indoor-climb" className="switch-link active">Indoor</Link>
+        <Link to="/log-outdoor-climb" className="switch-link">Outdoor</Link>
+      </div>
       <h1>Log Indoor Climb</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Location:</label>
-          <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} required />
+        <div className="form-group">
+          <label>Location</label>
+          <input 
+            type="text" 
+            value={location} 
+            onChange={(e) => setLocation(e.target.value)} 
+            required 
+          />
         </div>
-        <div>
-          <label>Grade:</label>
-          <input type="text" value={grade} onChange={(e) => setGrade(e.target.value)} required />
+        <div className="form-group">
+          <label>Grade</label>
+          <input 
+            type="text" 
+            value={grade} 
+            onChange={(e) => setGrade(e.target.value)} 
+            required 
+          />
         </div>
-        <div>
-          <label>Personal Rating:</label>
-          <input type="number" value={personalRating} onChange={(e) => setPersonalRating(e.target.value)} required />
+        <div className="form-group">
+          <label>Personal Rating</label>
+          <input 
+            type="range" 
+            min="1" 
+            max="10" 
+            value={personalRating} 
+            onChange={(e) => setPersonalRating(e.target.value)} 
+            required 
+          />
+          <span>{personalRating}</span>
         </div>
-        <div>
-          <label>Notes:</label>
-          <input type="text" value={notes} onChange={(e) => setNotes(e.target.value)} />
+        <div className="form-group">
+          <label>Notes</label>
+          <textarea 
+            value={notes} 
+            onChange={(e) => setNotes(e.target.value)} 
+            required 
+          />
         </div>
-        <div>
-          <label>Date:</label>
-          <input type="date" value={climbDate} onChange={(e) => setClimbDate(e.target.value)} required />
+        <div className="form-group">
+          <label>Date</label>
+          <input 
+            type="date" 
+            value={date} 
+            onChange={(e) => setDate(e.target.value)} 
+            required 
+          />
         </div>
-        {error && <p>{error}</p>}
-        {success && <p>{success}</p>}
-        <button type="submit">Log Indoor Climb</button>
+        <button type="submit" className="log-button">Log Climb</button>
       </form>
     </div>
   );
