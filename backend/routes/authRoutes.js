@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middleware/authMiddleware');
-const { register, login } = require('../controllers/authController');
+const { register, login, refreshToken } = require('../controllers/authController');
 const User = require('../models/User');
 
 router.post('/register', register);
 router.post('/login', login);
+router.post('/refresh-token', refreshToken);
 
 // Profile route
 router.get('/profile', authMiddleware, async (req, res) => {
