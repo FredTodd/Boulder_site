@@ -29,6 +29,7 @@ app.use('/auth', authRoutes);
 app.post('/climbs/indoor', authMiddleware, async (req, res) => {
   const { userId } = req.user;
   const { location, grade, personal_rating, notes, climb_date } = req.body;
+  console.log('Received climb data:', { user_id: userId, location, grade, personal_rating, notes, climb_date }); // Log the received data
   try {
     const climb = await IndoorClimb.create({ user_id: userId, location, grade, personal_rating, notes, climb_date });
     res.status(201).json(climb);
@@ -37,6 +38,7 @@ app.post('/climbs/indoor', authMiddleware, async (req, res) => {
     res.status(400).json({ message: 'Error logging indoor climb', error: error.message });
   }
 });
+
 
 app.post('/climbs/outdoor', authMiddleware, async (req, res) => {
   const { userId } = req.user;

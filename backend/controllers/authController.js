@@ -27,8 +27,8 @@ exports.login = async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid email or password' });
     }
-    const token = jwt.sign({ userId: user.user_id }, process.env.JWT_SECRET, { expiresIn: '7d' }); // Set expiration to 7 days
-    const refreshToken = jwt.sign({ userId: user.user_id }, process.env.JWT_SECRET, { expiresIn: '14d' }); // Set expiration to 14 days
+    const token = jwt.sign({ userId: user.user_id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const refreshToken = jwt.sign({ userId: user.user_id }, process.env.JWT_SECRET, { expiresIn: '7d' });
     res.json({ token, refreshToken });
   } catch (error) {
     console.error('Error logging in:', error);
@@ -45,7 +45,7 @@ exports.refreshToken = async (req, res) => {
 
   try {
     const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
-    const newToken = jwt.sign({ userId: decoded.userId }, process.env.JWT_SECRET, { expiresIn: '7d' }); // Set expiration to 7 days
+    const newToken = jwt.sign({ userId: decoded.userId }, process.env.JWT_SECRET, { expiresIn: '7d' });
     res.json({ token: newToken });
   } catch (error) {
     console.error('Error refreshing token:', error);

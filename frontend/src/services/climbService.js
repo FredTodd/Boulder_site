@@ -14,12 +14,14 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
       const refreshToken = localStorage.getItem('refreshToken');
       if (!refreshToken) {
+        console.error('No refresh token found');
         throw new Error('No refresh token found');
       }
       try {
         const { data } = await axiosInstance.post('/auth/refresh-token', { refreshToken });
         localStorage.setItem('token', data.token);
         axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+        originalRequest.headers['Authorization'] = `Bearer ${data.token}`; // Ensure original request uses new token
         return axiosInstance(originalRequest);
       } catch (refreshError) {
         console.error('Error refreshing token:', refreshError);
@@ -33,6 +35,9 @@ axiosInstance.interceptors.response.use(
 export const logIndoorClimb = async (climbData) => {
   try {
     const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No token found');
+    }
     const response = await axiosInstance.post('/climbs/indoor', climbData, {
       headers: {
         Authorization: `Bearer ${token}`
@@ -48,6 +53,9 @@ export const logIndoorClimb = async (climbData) => {
 export const logOutdoorClimb = async (climbData) => {
   try {
     const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('No token found');
+    }
     const response = await axiosInstance.post('/climbs/outdoor', climbData, {
       headers: {
         Authorization: `Bearer ${token}`

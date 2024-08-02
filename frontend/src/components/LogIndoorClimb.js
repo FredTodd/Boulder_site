@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { logIndoorClimb } from '../services/climbService'; // Assuming you have a service for API calls
+import { Link, useNavigate } from 'react-router-dom'; // Import Link from react-router-dom
+import { logIndoorClimb } from '../services/climbService';
 import './LogClimb.css';
 
 const LogIndoorClimb = () => {
@@ -13,8 +13,16 @@ const LogIndoorClimb = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const climbData = { 
+      location, 
+      grade, 
+      personal_rating: personalRating, 
+      notes, 
+      climb_date: date // Ensure the date is captured and sent correctly
+    };
+    console.log('Submitting climb data:', climbData); // Log the data being submitted
     try {
-      await logIndoorClimb({ location, grade, personalRating, notes, date });
+      await logIndoorClimb(climbData);
       navigate('/profile'); // Redirect after successful submission
     } catch (error) {
       console.error('Error logging indoor climb:', error);
