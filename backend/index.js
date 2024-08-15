@@ -25,7 +25,7 @@ sequelize.sync({ force: false }).then(() => {
 const authRoutes = require('./routes/authRoutes');
 app.use('/auth', authRoutes);
 
-// Add routes for logging climbs
+// Add routes for logging indoor climbs
 app.post('/climbs/indoor', authMiddleware, async (req, res) => {
   const { userId } = req.user;
   const { location, grade, personal_rating, notes, climb_date } = req.body;
@@ -39,10 +39,11 @@ app.post('/climbs/indoor', authMiddleware, async (req, res) => {
   }
 });
 
-
+// Add routes for logging indoor climbs
 app.post('/climbs/outdoor', authMiddleware, async (req, res) => {
   const { userId } = req.user;
   const { location, route_name, grade, personal_rating, notes, climb_date } = req.body;
+  console.log('Received outdoor climb data:', { user_id: userId, location, route_name, grade, personal_rating, notes, climb_date }); // Log the received data
   try {
     const climb = await OutdoorClimb.create({ user_id: userId, location, route_name, grade, personal_rating, notes, climb_date });
     res.status(201).json(climb);

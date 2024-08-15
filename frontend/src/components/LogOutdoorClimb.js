@@ -1,21 +1,30 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { logOutdoorClimb } from '../services/climbService'; // Assuming you have a service for API calls
+import { Link, useNavigate } from 'react-router-dom'; // Import Link from react-router-dom
+import { logOutdoorClimb } from '../services/climbService';
 import './LogClimb.css';
 
 const LogOutdoorClimb = () => {
   const [location, setLocation] = useState('');
-  const [routeName, setRouteName] = useState('');
+  const [routeName, setRouteName] = useState(''); // Capture route name
   const [grade, setGrade] = useState('');
   const [personalRating, setPersonalRating] = useState(5); // Default value to 5
   const [notes, setNotes] = useState('');
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(''); // Capture climb date
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const climbData = { 
+      location, 
+      route_name: routeName, // Ensure this matches the backend expectation
+      grade, 
+      personal_rating: personalRating, 
+      notes, 
+      climb_date: date // Ensure this matches the backend expectation
+    };
+    console.log('Submitting outdoor climb data:', climbData); // Log the data being submitted
     try {
-      await logOutdoorClimb({ location, routeName, grade, personalRating, notes, date });
+      await logOutdoorClimb(climbData);
       navigate('/profile'); // Redirect after successful submission
     } catch (error) {
       console.error('Error logging outdoor climb:', error);

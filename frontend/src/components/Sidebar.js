@@ -24,7 +24,7 @@ const Sidebar = () => {
         {isAuthenticated ? (
           <div className="user-options">
             <Link to="/profile">Profile</Link>
-            <Link to="/add-ascent">Add Ascent</Link>
+            <Link to="/log-indoor-climb">Add Ascent</Link>
             <Link to="/add-friends">Add Friends</Link>
             <Link to="/logbook">My Logbook</Link>
             <button onClick={logout}>Logout</button>

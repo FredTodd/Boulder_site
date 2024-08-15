@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './Profile.css'; // Import the CSS file for styling
 
 const Profile = () => {
   const [username, setUsername] = useState('');
@@ -61,12 +62,24 @@ const Profile = () => {
   }, [fetchProfile]);
 
   return (
-    <div>
-      <h1>Profile</h1>
-      <div>
+    <div className="profile-container">
+      <div className="profile-info">
         <img src={profilePicture} alt="Profile" />
         <p>Username: {username}</p>
         <p>Bio: {bio}</p>
+      </div>
+      <div className="profile-nav">
+        <a href="#boulders">Boulders</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#info-bio">Info/Bio</a>
+      </div>
+      <div className="profile-stats">
+        <h3>Stats</h3>
+        {/* Display user stats here */}
+      </div>
+      <div className="profile-logbook">
+        <h3>Logbook</h3>
+        {/* Display user logbook here */}
       </div>
       {error && <p>{error}</p>}
       <button onClick={() => navigate('/update-profile')}>Update Profile</button>

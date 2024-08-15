@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './components/Home';
 import Register from './components/Register';
 import Login from './components/Login';
@@ -10,9 +10,12 @@ import LogOutdoorClimb from './components/LogOutdoorClimb';
 import ProtectedRoute from './components/ProtectedRoute';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
+import RightSidebar from './components/RightSidebar'; // Import RightSidebar component
 import './App.css';
 
 const App = () => {
+  const location = useLocation(); // Get the current location
+
   return (
     <>
       <Header />
@@ -30,6 +33,8 @@ const App = () => {
             <Route path="/log-outdoor-climb" element={<ProtectedRoute component={LogOutdoorClimb} />} />
           </Routes>
         </div>
+        {/* Conditionally render RightSidebar only on the home page */}
+        {location.pathname === '/' && <RightSidebar />}
       </div>
     </>
   );

@@ -3,7 +3,6 @@
     padding: 1rem;
     background-color: #DCE3E4; /* General backing color */
     height: calc(100vh - 80px); /* Adjust height based on header height */
-    border-left: 1px solid #424051; /* Secondary color for border */
     overflow-y: auto; /* Allow vertical scrolling if content overflows */
   }
   
