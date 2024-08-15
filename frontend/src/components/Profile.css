@@ -1,7 +1,7 @@
 .profile-container {
     padding: 20px;
     display: grid;
-    grid-template-rows: auto auto auto 1fr;
+    grid-template-rows: auto auto 1fr;
     grid-gap: 20px;
   }
   
@@ -21,18 +21,37 @@
     object-fit: cover;
   }
   
-  .profile-nav {
+  .profile-info div {
     display: flex;
-    justify-content: space-around;
-    border: 2px solid #424051; /* Dark grey border */
-    padding: 10px;
-    background-color: #DCE3E4; /* Background color */
+    flex-direction: column;
+    gap: 10px; /* Space between text and buttons */
   }
   
-  .profile-nav a {
-    text-decoration: none;
-    color: #424051;
+  .username {
+    font-size: 24px; /* Larger font size for the username */
     font-weight: bold;
+    margin: 0; /* Remove margin */
+    color: #424051; /* Dark grey color */
+  }
+  
+  .bio {
+    font-size: 18px; /* Slightly smaller font size for the bio */
+    margin: 5px 0 10px 0; /* Adjust margins for spacing */
+    color: #424051; /* Dark grey color */
+  }
+  
+  .profile-info button {
+    background-color: #567934; /* Green background */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .profile-info button:hover {
+    background-color: #424051; /* Dark grey on hover */
   }
   
   .profile-stats {
