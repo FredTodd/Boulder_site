@@ -9,29 +9,34 @@
   }
   
   .switch-links {
+    margin-bottom: 20px;
     display: flex;
     justify-content: center;
-    margin-bottom: 1rem;
+    gap: 10px;
   }
   
-  .switch-link {
-    padding: 0.5rem 1rem;
-    color: #424051; /* Secondary color for text */
-    background-color: #fff; /* White background */
-    border: 1px solid #ccc;
-    border-radius: 4px 4px 0 0;
+  .button {
+    padding: 10px 20px;
     text-decoration: none;
-    margin: 0 0.5rem;
+    color: white;
+    background-color: #567934; /* Default green */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
   }
   
-  .switch-link.active {
-    background-color: #567934; /* Highlight color for active link */
-    color: white;
+  .active-button {
+    background-color: #424051; /* Dark grey when active */
   }
   
-  .switch-link:hover {
-    background-color: #455d2a; /* Slightly darker green for hover */
-    color: white;
+  .inactive-button {
+    background-color: #567934; /* Green when inactive */
+  }
+  
+  .button:hover {
+    background-color: #424051; /* Dark grey on hover */
   }
   
   .log-climb-container h1 {

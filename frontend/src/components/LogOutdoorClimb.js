@@ -1,31 +1,23 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link, useNavigate } from 'react-router-dom';
 import { logOutdoorClimb } from '../services/climbService';
 import './LogClimb.css';
 
 const LogOutdoorClimb = () => {
   const [location, setLocation] = useState('');
-  const [routeName, setRouteName] = useState(''); // Capture route name
-  const [grade, setGrade] = useState('');
-  const [personalRating, setPersonalRating] = useState(5); // Default value to 5
+  const [routeName, setRouteName] = useState('');
+  const [grade, setGrade] = useState('VB');
+  const [personalRating, setPersonalRating] = useState(5);
   const [notes, setNotes] = useState('');
-  const [date, setDate] = useState(''); // Capture climb date
+  const [date, setDate] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const climbData = { 
-      location, 
-      route_name: routeName, // Ensure this matches the backend expectation
-      grade, 
-      personal_rating: personalRating, 
-      notes, 
-      climb_date: date // Ensure this matches the backend expectation
-    };
-    console.log('Submitting outdoor climb data:', climbData); // Log the data being submitted
+    const climbData = { location, route_name: routeName, grade, personal_rating: personalRating, notes, climb_date: date };
     try {
       await logOutdoorClimb(climbData);
-      navigate('/profile'); // Redirect after successful submission
+      navigate('/profile');
     } catch (error) {
       console.error('Error logging outdoor climb:', error);
     }
@@ -34,8 +26,8 @@ const LogOutdoorClimb = () => {
   return (
     <div className="log-climb-container">
       <div className="switch-links">
-        <Link to="/log-indoor-climb" className="switch-link">Indoor</Link>
-        <Link to="/log-outdoor-climb" className="switch-link active">Outdoor</Link>
+        <Link to="/log-indoor-climb" className="button inactive-button">Indoor</Link>
+        <Link to="/log-outdoor-climb" className="button active-button">Outdoor</Link>
       </div>
       <h1>Log Outdoor Climb</h1>
       <form onSubmit={handleSubmit}>
@@ -59,19 +51,23 @@ const LogOutdoorClimb = () => {
         </div>
         <div className="form-group">
           <label>Grade</label>
-          <input 
-            type="text" 
+          <select 
             value={grade} 
             onChange={(e) => setGrade(e.target.value)} 
-            required 
-          />
+            required
+          >
+            {/* Dropdown options for climbing grades */}
+            {['VB', 'V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10', 'V11', 'V12', 'V13', 'V14', 'V15', 'V16', 'V17'].map((g) => (
+              <option key={g} value={g}>{g}</option>
+            ))}
+          </select>
         </div>
         <div className="form-group">
           <label>Personal Rating</label>
           <input 
             type="range" 
             min="1" 
-            max="10" 
+            max="5" 
             value={personalRating} 
             onChange={(e) => setPersonalRating(e.target.value)} 
             required 
