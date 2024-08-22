@@ -59,19 +59,25 @@ router.get('/climbs', authMiddleware, async (req, res) => {
   try {
     const { userId } = req.user; // Assuming req.user is populated by the auth middleware
 
-    // Fetch both indoor and outdoor climbs
+    // Fetch both indoor and outdoor climbs asynchronously
     const indoorClimbs = await IndoorClimb.findAll({
       where: { user_id: userId },
-      attributes: ['grade', 'location', 'climb_date', 'personal_rating', 'notes'],
+      attributes: ['grade', 'location', 'climb_date', 'personal_rating', 'notes', 'type']
     });
+
+    console.log('Indoor Climbs:', indoorClimbs); // Log indoor climbs
 
     const outdoorClimbs = await OutdoorClimb.findAll({
       where: { user_id: userId },
-      attributes: ['grade', 'location', 'climb_date', 'route_name', 'personal_rating', 'notes'],
+      attributes: ['grade', 'location', 'route_name', 'climb_date', 'personal_rating', 'notes', 'type']
     });
+
+    console.log('Outdoor Climbs:', outdoorClimbs); // Log outdoor climbs
 
     // Combine both types of climbs into one array
     const climbs = [...indoorClimbs, ...outdoorClimbs];
+
+    console.log('Combined Climbs:', climbs); // Log combined climbs
 
     res.json(climbs);
   } catch (error) {
@@ -79,5 +85,6 @@ router.get('/climbs', authMiddleware, async (req, res) => {
     res.status(500).json({ message: 'Error fetching climbs' });
   }
 });
+
 
 module.exports = router;

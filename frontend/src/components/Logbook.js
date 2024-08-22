@@ -4,7 +4,7 @@ import './Logbook.css';
 
 const Logbook = () => {
   const [climbs, setClimbs] = useState([]);
-  const [typeFilter, setTypeFilter] = useState('both'); // Filtering by climb type
+  const [filter, setFilter] = useState('both'); // 'both', 'indoor', 'outdoor'
 
   useEffect(() => {
     const fetchClimbs = async () => {
@@ -15,7 +15,6 @@ const Logbook = () => {
           },
         });
         const data = await response.json();
-        console.log('Fetched climbs:', data); // Log fetched climbs for debugging
         setClimbs(data);
       } catch (error) {
         console.error('Error fetching climbs:', error);
@@ -25,13 +24,12 @@ const Logbook = () => {
     fetchClimbs();
   }, []);
 
-  // Filter climbs by type
-  const filteredClimbs = climbs.filter(climb => {
-    if (typeFilter === 'both') return true;
-    return climb.type === typeFilter;
-  });
-
-  console.log('Filtered climbs:', filteredClimbs); // Log filtered climbs for debugging
+  const filterClimbs = () => {
+    if (filter === 'both') {
+      return climbs;
+    }
+    return climbs.filter(climb => climb.type === filter);
+  };
 
   const countClimbsPerGrade = () => {
     const allGrades = [
@@ -44,7 +42,7 @@ const Logbook = () => {
       return acc;
     }, {});
 
-    filteredClimbs.forEach(climb => {
+    filterClimbs().forEach(climb => {
       gradeCounts[climb.grade] = (gradeCounts[climb.grade] || 0) + 1;
     });
 
@@ -80,12 +78,10 @@ const Logbook = () => {
 
   return (
     <div className="logbook-container">
-      <div className="logbook-controls">
-        <select onChange={(e) => setTypeFilter(e.target.value)} value={typeFilter}>
-          <option value="both">Both Indoor & Outdoor</option>
-          <option value="indoor">Indoor Only</option>
-          <option value="outdoor">Outdoor Only</option>
-        </select>
+      <div className="filter-buttons">
+        <button onClick={() => setFilter('both')}>Both</button>
+        <button onClick={() => setFilter('indoor')}>Indoor</button>
+        <button onClick={() => setFilter('outdoor')}>Outdoor</button>
       </div>
       <div className="climbs-list">
         <Bar data={data} options={options} />
