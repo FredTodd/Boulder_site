@@ -3,6 +3,8 @@ const router = express.Router();
 const authMiddleware = require('../middleware/authMiddleware');
 const { register, login, refreshToken } = require('../controllers/authController');
 const User = require('../models/User');
+const IndoorClimb = require('../models/IndoorClimb');
+const OutdoorClimb = require('../models/OutdoorClimb');
 
 router.post('/register', register);
 router.post('/login', login);
@@ -49,6 +51,32 @@ router.put('/profile', authMiddleware, async (req, res) => {
   } catch (error) {
     console.error('Error updating profile:', error.message);
     res.status(500).json({ message: 'Error updating profile', error: error.message });
+  }
+});
+
+// Fetch all climbs for the authenticated user
+router.get('/climbs', authMiddleware, async (req, res) => {
+  try {
+    const { userId } = req.user; // Assuming req.user is populated by the auth middleware
+
+    // Fetch both indoor and outdoor climbs
+    const indoorClimbs = await IndoorClimb.findAll({
+      where: { user_id: userId },
+      attributes: ['grade', 'location', 'climb_date', 'personal_rating', 'notes'],
+    });
+
+    const outdoorClimbs = await OutdoorClimb.findAll({
+      where: { user_id: userId },
+      attributes: ['grade', 'location', 'climb_date', 'route_name', 'personal_rating', 'notes'],
+    });
+
+    // Combine both types of climbs into one array
+    const climbs = [...indoorClimbs, ...outdoorClimbs];
+
+    res.json(climbs);
+  } catch (error) {
+    console.error('Error fetching climbs:', error);
+    res.status(500).json({ message: 'Error fetching climbs' });
   }
 });
 

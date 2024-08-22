@@ -8,6 +8,7 @@ import UpdateProfile from './components/UpdateProfile';
 import LogIndoorClimb from './components/LogIndoorClimb';
 import LogOutdoorClimb from './components/LogOutdoorClimb';
 import ProtectedRoute from './components/ProtectedRoute';
+import Logbook from './components/Logbook';  // Import Logbook component
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import RightSidebar from './components/RightSidebar'; // Import RightSidebar component
@@ -31,6 +32,7 @@ const App = () => {
             <Route path="/log-climb" element={<ProtectedRoute component={LogIndoorClimb} />} />
             <Route path="/log-indoor-climb" element={<ProtectedRoute component={LogIndoorClimb} />} />
             <Route path="/log-outdoor-climb" element={<ProtectedRoute component={LogOutdoorClimb} />} />
+            <Route path="/logbook" element={<ProtectedRoute component={Logbook} />} />  {/* Add Logbook route */}
           </Routes>
         </div>
         {/* Conditionally render RightSidebar only on the home page */}
