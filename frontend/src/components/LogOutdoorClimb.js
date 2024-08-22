@@ -9,6 +9,7 @@ const LogOutdoorClimb = () => {
   const [grade, setGrade] = useState('VB');
   const [personalRating, setPersonalRating] = useState(5);
   const [notes, setNotes] = useState('');
+  const maxChars = 200;
   const [date, setDate] = useState('');
   const navigate = useNavigate();
 
@@ -21,6 +22,10 @@ const LogOutdoorClimb = () => {
     } catch (error) {
       console.error('Error logging outdoor climb:', error);
     }
+  };
+
+  const handleNotesChange = (e) => {
+    setNotes(e.target.value);
   };
 
   return (
@@ -77,10 +82,15 @@ const LogOutdoorClimb = () => {
         <div className="form-group">
           <label>Notes</label>
           <textarea 
-            value={notes} 
-            onChange={(e) => setNotes(e.target.value)} 
+          id="notes"
+          value={notes}
+          onChange={handleNotesChange}
+          maxLength={maxChars}
+          rows="4"
+          cols="50"
             required 
           />
+           <p>{notes.length}/{maxChars} characters</p> {/* Displays character count */}
         </div>
         <div className="form-group">
           <label>Date</label>

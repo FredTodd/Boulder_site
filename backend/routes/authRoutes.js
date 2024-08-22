@@ -1,14 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middleware/authMiddleware');
-const { register, login, refreshToken } = require('../controllers/authController');
+const authController = require('../controllers/authController');  // Add this line
 const User = require('../models/User');
 const IndoorClimb = require('../models/IndoorClimb');
 const OutdoorClimb = require('../models/OutdoorClimb');
 
-router.post('/register', register);
-router.post('/login', login);
-router.post('/refresh-token', refreshToken);
+router.post('/register', authController.register);
+router.post('/login', authController.login);
+router.post('/refresh-token', authController.refreshToken);
+router.get('/check-username', authMiddleware, authController.checkUsername);
+
+
 
 // Profile route
 router.get('/profile', authMiddleware, async (req, res) => {
