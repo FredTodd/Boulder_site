@@ -35,6 +35,11 @@ const IndoorClimb = sequelize.define('IndoorClimb', {
     type: DataTypes.DATE,
     allowNull: false,
   },
+  type: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 'indoor', // Set default type to 'indoor'
+  },
 }, {
   tableName: 'IndoorClimbs',
   timestamps: false,

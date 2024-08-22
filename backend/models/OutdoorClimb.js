@@ -39,6 +39,11 @@ const OutdoorClimb = sequelize.define('OutdoorClimb', {
     type: DataTypes.DATE,
     allowNull: false,
   },
+  type: { // New type column
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 'outdoor', // Default value is 'outdoor'
+  },
 }, {
   tableName: 'OutdoorClimbs',
   timestamps: false,

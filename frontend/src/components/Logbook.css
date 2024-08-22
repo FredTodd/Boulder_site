@@ -31,4 +31,15 @@
     background-color: #424051; /* Dark background color */
     color: white;
   }
+
+  .logbook-controls {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+  }
+  
+  .logbook-controls select {
+    padding: 5px;
+    border-radius: 5px;
+  }
   
