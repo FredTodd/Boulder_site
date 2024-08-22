@@ -7,7 +7,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
   return isAuthenticated ? (
     <Component {...rest} />
   ) : (
-    <Navigate to="/login" state={{ message: 'You must log in before logging a climb' }} />
+    <Navigate to="/login" state={{ message: 'You must log in first' }} />
   );
 };
 

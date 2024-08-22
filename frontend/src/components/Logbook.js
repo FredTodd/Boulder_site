@@ -4,7 +4,8 @@ import './Logbook.css';
 
 const Logbook = () => {
   const [climbs, setClimbs] = useState([]);
-  const [filter, setFilter] = useState('both'); // 'both', 'indoor', 'outdoor'
+  const [chartFilter, setChartFilter] = useState('both'); // 'both', 'indoor', 'outdoor'
+  const [sortOption, setSortOption] = useState('grade-asc'); // Default sort option
 
   useEffect(() => {
     const fetchClimbs = async () => {
@@ -24,11 +25,11 @@ const Logbook = () => {
     fetchClimbs();
   }, []);
 
-  const filterClimbs = () => {
-    if (filter === 'both') {
+  const filterClimbsForChart = () => {
+    if (chartFilter === 'both') {
       return climbs;
     }
-    return climbs.filter(climb => climb.type === filter);
+    return climbs.filter(climb => climb.type === chartFilter);
   };
 
   const countClimbsPerGrade = () => {
@@ -42,7 +43,7 @@ const Logbook = () => {
       return acc;
     }, {});
 
-    filterClimbs().forEach(climb => {
+    filterClimbsForChart().forEach(climb => {
       gradeCounts[climb.grade] = (gradeCounts[climb.grade] || 0) + 1;
     });
 
@@ -76,15 +77,66 @@ const Logbook = () => {
     },
   };
 
+  const sortClimbs = (climbs) => {
+    return climbs.sort((a, b) => {
+      if (sortOption === 'grade-asc') {
+        return a.grade.localeCompare(b.grade);
+      } else if (sortOption === 'grade-desc') {
+        return b.grade.localeCompare(a.grade);
+      } else if (sortOption === 'date-asc') {
+        return new Date(a.climb_date) - new Date(b.climb_date);
+      } else if (sortOption === 'date-desc') {
+        return new Date(b.climb_date) - new Date(a.climb_date);
+      }
+      return 0;
+    });
+  };
+
   return (
-    <div className="logbook-container">
-      <div className="filter-buttons">
-        <button onClick={() => setFilter('both')}>Both</button>
-        <button onClick={() => setFilter('indoor')}>Indoor</button>
-        <button onClick={() => setFilter('outdoor')}>Outdoor</button>
+    <div className="logbook-page">
+      {/* Container for the chart */}
+      <div className="chart-container">
+        <div className="filter-buttons">
+          <button onClick={() => setChartFilter('both')}>Both</button>
+          <button onClick={() => setChartFilter('indoor')}>Indoor</button>
+          <button onClick={() => setChartFilter('outdoor')}>Outdoor</button>
+        </div>
+        <div className="chart">
+          <Bar data={data} options={options} />
+        </div>
       </div>
-      <div className="climbs-list">
-        <Bar data={data} options={options} />
+
+      {/* Container for the climb list with sort dropdown */}
+      <div className="sort-dropdown">
+        <label htmlFor="sort">Sort by: </label>
+        <select id="sort" value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
+          <option value="grade-asc">Grade (Low to High)</option>
+          <option value="grade-desc">Grade (High to Low)</option>
+          <option value="date-asc">Date (Oldest to Newest)</option>
+          <option value="date-desc">Date (Newest to Oldest)</option>
+        </select>
+      </div>
+
+      <div className="details-container">
+        {sortClimbs(climbs).map((climb, index) => (
+          <div key={index} className="climb-item">
+            <div className="grade">
+              <h1>{climb.grade}</h1>
+            </div>
+            <div className="details">
+              <h2><b>{climb.route_name}</b></h2>
+              <p>Location: {climb.location}</p>
+              <p>Date: {new Date(climb.climb_date).toLocaleDateString()}</p>
+              <p>{climb.type}</p>
+            </div>
+            <div className="notes">
+              <p2>{climb.notes}</p2>
+            </div>
+            <div className="rating">
+              <p>{Array(climb.personal_rating).fill('⭐').join('')}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

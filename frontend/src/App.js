@@ -11,7 +11,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Logbook from './components/Logbook';  // Import Logbook component
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
-import RightSidebar from './components/RightSidebar'; // Import RightSidebar component
+import RightSidebar from './components/RightSidebar';
+import Friends from './components/Friends'; // Import RightSidebar component
 import './App.css';
 
 const App = () => {
@@ -21,7 +22,7 @@ const App = () => {
     <>
       <Header />
       <div className="main-content">
-        <Sidebar />
+      {location.pathname !== '/login' && location.pathname !== '/register' && <Sidebar />}
         <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -32,7 +33,8 @@ const App = () => {
             <Route path="/log-climb" element={<ProtectedRoute component={LogIndoorClimb} />} />
             <Route path="/log-indoor-climb" element={<ProtectedRoute component={LogIndoorClimb} />} />
             <Route path="/log-outdoor-climb" element={<ProtectedRoute component={LogOutdoorClimb} />} />
-            <Route path="/logbook" element={<ProtectedRoute component={Logbook} />} />  {/* Add Logbook route */}
+            <Route path="/logbook" element={<ProtectedRoute component={Logbook} />} />
+            <Route path="/friends" element={<ProtectedRoute component={Friends} />} />
           </Routes>
         </div>
         {/* Conditionally render RightSidebar only on the home page */}
