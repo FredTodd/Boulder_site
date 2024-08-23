@@ -13,7 +13,7 @@ module.exports = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     dialect: 'mysql',
-    logging: console.log, // Enable logging for debugging
+    logging: console.log, // for debugging
   },
   test: {
     username: process.env.DB_USER,

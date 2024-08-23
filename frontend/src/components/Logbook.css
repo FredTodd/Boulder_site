@@ -101,7 +101,11 @@
 
 .climb-item .notes {
   text-align: left; /* Center notes as well */
-  color: #ffffff !important; /* Ensure notes text is white */
+}
+
+.climb-item .notes p {
+  margin: 0;
+  color: #ffffff;
 }
 
 .climb-item .rating {

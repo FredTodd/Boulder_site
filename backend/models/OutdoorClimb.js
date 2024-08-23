@@ -24,7 +24,7 @@ const OutdoorClimb = sequelize.define('OutdoorClimb', {
     allowNull: false,
   },
   grade: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   personal_rating: {

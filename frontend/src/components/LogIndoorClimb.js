@@ -5,7 +5,7 @@ import './LogClimb.css';
 
 const LogIndoorClimb = () => {
   const [location, setLocation] = useState('');
-  const [grade, setGrade] = useState('VB');
+  const [grade, setGrade] = useState(0); // Initialize as integer
   const [personalRating, setPersonalRating] = useState(5);
   const [notes, setNotes] = useState('');
   const maxChars = 200;
@@ -14,7 +14,13 @@ const LogIndoorClimb = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const climbData = { location, grade, personal_rating: personalRating, notes, climb_date: date };
+    const climbData = { 
+      location, 
+      grade, // Already an integer
+      personal_rating: personalRating, 
+      notes, 
+      climb_date: date 
+    };
     try {
       await logIndoorClimb(climbData);
       navigate('/profile');
@@ -48,12 +54,12 @@ const LogIndoorClimb = () => {
           <label>Grade</label>
           <select 
             value={grade} 
-            onChange={(e) => setGrade(e.target.value)} 
+            onChange={(e) => setGrade(parseInt(e.target.value, 10))} // Convert to integer
             required
           >
             {/* Dropdown options for climbing grades */}
-            {['VB', 'V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10', 'V11', 'V12', 'V13', 'V14', 'V15', 'V16', 'V17'].map((g) => (
-              <option key={g} value={g}>{g}</option>
+            {['VB', 'V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10', 'V11', 'V12', 'V13', 'V14', 'V15', 'V16', 'V17'].map((g, index) => (
+              <option key={g} value={index}>{g}</option> // Use index as value (integer)
             ))}
           </select>
         </div>
@@ -72,15 +78,15 @@ const LogIndoorClimb = () => {
         <div className="form-group">
           <label>Notes</label>
           <textarea 
-          id="notes"
-          value={notes}
-          onChange={handleNotesChange}
-          maxLength={maxChars}
-          rows="4"
-          cols="50"
+            id="notes"
+            value={notes}
+            onChange={handleNotesChange}
+            maxLength={maxChars}
+            rows="4"
+            cols="50"
             required 
           />
-           <p>{notes.length}/{maxChars} characters</p> {/* Displays character count */}
+          <p>{notes.length}/{maxChars} characters</p> {/* Displays character count */}
         </div>
         <div className="form-group">
           <label>Date</label>

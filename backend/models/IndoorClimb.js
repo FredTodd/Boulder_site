@@ -20,7 +20,7 @@ const IndoorClimb = sequelize.define('IndoorClimb', {
     allowNull: false,
   },
   grade: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
   personal_rating: {
