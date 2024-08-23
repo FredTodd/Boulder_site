@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './Profile.css'; // Import the CSS file for styling
+import './Profile.css';
+import LogbookFeature from './LogbookFeature';
 
 const Profile = () => {
   const [username, setUsername] = useState('');
@@ -72,15 +73,11 @@ const Profile = () => {
           <button onClick={() => navigate('/update-profile')}>Edit Profile</button>
         </div>
       </div>
-      <div className="profile-stats">
-        <h3>Stats</h3>
-        {/* Display user stats here */}
-      </div>
       <div className="profile-logbook">
         <h3>Logbook</h3>
-        {/* Display user logbook here */}
+        <LogbookFeature fetchClimbsUrl={`${process.env.REACT_APP_API_URL}/auth/climbs`} />
       </div>
-      {error && <p>{error}</p>}
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 };

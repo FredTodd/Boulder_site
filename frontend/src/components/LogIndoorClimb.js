@@ -3,9 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { logIndoorClimb } from '../services/climbService';
 import './LogClimb.css';
 
+const allGrades = [
+  'VB', 'V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7',
+  'V8', 'V9', 'V10', 'V11', 'V12', 'V13', 'V14', 'V15', 'V16', 'V17'
+];
+
+
 const LogIndoorClimb = () => {
   const [location, setLocation] = useState('');
-  const [grade, setGrade] = useState(0); // Initialize as integer
+  const [grade, setGrade] = useState(0); // Initialize as integer for 'VB'
   const [personalRating, setPersonalRating] = useState(5);
   const [notes, setNotes] = useState('');
   const maxChars = 200;
@@ -16,7 +22,7 @@ const LogIndoorClimb = () => {
     event.preventDefault();
     const climbData = { 
       location, 
-      grade, // Already an integer
+      grade: grade, // No need to call gradeToInt again, it's already an integer
       personal_rating: personalRating, 
       notes, 
       climb_date: date 
@@ -54,12 +60,11 @@ const LogIndoorClimb = () => {
           <label>Grade</label>
           <select 
             value={grade} 
-            onChange={(e) => setGrade(parseInt(e.target.value, 10))} // Convert to integer
+            onChange={(e) => setGrade(parseInt(e.target.value, 10))} // Converts it into integer hopefully
             required
           >
-            {/* Dropdown options for climbing grades */}
-            {['VB', 'V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10', 'V11', 'V12', 'V13', 'V14', 'V15', 'V16', 'V17'].map((g, index) => (
-              <option key={g} value={index}>{g}</option> // Use index as value (integer)
+            {allGrades.map((g, index) => (
+              <option key={g} value={index}>{g}</option>
             ))}
           </select>
         </div>
@@ -86,7 +91,7 @@ const LogIndoorClimb = () => {
             cols="50"
             required 
           />
-          <p>{notes.length}/{maxChars} characters</p> {/* Displays character count */}
+          <p>{notes.length}/{maxChars} characters</p> {/* should show character count */}
         </div>
         <div className="form-group">
           <label>Date</label>
