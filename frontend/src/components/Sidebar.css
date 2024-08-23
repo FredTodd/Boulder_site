@@ -2,7 +2,7 @@
   width: 200px;
   padding: 1rem;
   background-color: #DCE3E4; /* Dark grey background */
-  height: 100vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

@@ -1,50 +1,79 @@
 .home-container {
-    padding: 2rem;
-    background-color: #DCE3E4; /* General backing color */
-    border-left: 2px solid #424051;
-    border-right: 2px solid #424051;
-    border-bottom: 2px solid #424051;
-  }
-  
-  .home-container h1 {
-    text-align: center;
-    margin-bottom: 2rem;
-    color: #424051; /* Secondary color for text */
-  }
-  
-  .log-climb-button {
-    display: block;
-    margin: 0 auto 2rem auto;
-    padding: 0.5rem 1rem;
-    background-color: #567934; /* Highlight color for button */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    text-align: center;
-  }
-  
-  .log-climb-button a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .log-climb-button:hover {
-    background-color: #455d2a; /* Slightly darker green for hover state */
-  }
-  
-  .feed {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .today-feed, .news {
-    width: 48%;
-  }
-  
-  .today-feed h2, .news h2 {
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
-    color: #424051; /* Secondary color for text */
-  }
-  
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feed {
+  margin-top: 20px;
+}
+
+.post-card {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.post-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #424051;
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  background: #000;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.post-content img,
+.post-content video {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.post-content p {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.post-body {
+  font-size: 16px;
+  color: #666;
+}
+
+.post-image {
+  max-width: 100%;  /* Ensures the image scales with the container */
+  max-height: 450px; /* Limits the maximum height of the image */
+  width: 800px;      /* Ensures the image matches the width of the video */
+  height: 450px;     /* Ensures consistent height with the video */
+  object-fit: cover; /* Ensures the image covers the entire container */
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;    /* Center the image horizontally */
+  cursor: pointer;
+}
+
+/* Optional: Hover effect */
+.post-image:hover {
+  opacity: 0.8;
+}
