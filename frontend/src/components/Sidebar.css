@@ -1,18 +1,21 @@
+body {
+  font-family: "Archivo Narrow";
+}
+
 .sidebar {
   width: 200px;
   padding: 1rem;
-  background-color: #DCE3E4; /* Dark grey background */
+  background-color: #978c7e; /* Dark grey background */
   height: auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  border-right: 1px solid #ccc; /* Secondary color for border */
   overflow-y: auto;
 }
 
 .auth-section, .feed-section {
   margin-bottom: 1rem;
-  border: 1px solid #ccc; /* Secondary color for border */
+  border: 1px solid #424051; /* Secondary color for border */
   padding: 1rem;
   border-radius: 4px;
   background-color: #424051; /* General backing color */
@@ -38,6 +41,11 @@
   text-overflow: ellipsis;
 }
 
+.user-options button {
+  font-size: 1rem;
+  font-family: "Archivo Narrow";
+}
+
 .auth-button:hover, .user-options a:hover, .user-options button:hover {
   background-color: #455d2a; /* Slightly darker green for hover */
 }
@@ -51,4 +59,5 @@
 .feed-section p {
   margin: 0.5rem 0;
   color: white; /* White text for feed section */
+  font-size: 1rem;
 }

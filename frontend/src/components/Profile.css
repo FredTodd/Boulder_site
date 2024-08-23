@@ -1,14 +1,19 @@
+body {
+  font-family: "Archivo Narrow";
+}
+
 .profile-container {
   padding: 20px;
   display: grid;
   grid-template-rows: auto auto 1fr;
   grid-gap: 20px;
+  background-color: #978c7e;
 }
 
 .profile-info {
   border: 2px solid #424051; /* Dark grey border */
   padding: 20px;
-  background-color: #DCE3E4; /* Background color */
+  background-color: #ecdfcd; /* Background color */
   display: flex;
   align-items: center;
   gap: 20px; /* Space between image and text */
@@ -84,8 +89,12 @@
 }
 
 .profile-logbook {
-  border: 2px solid #424051; /* Dark grey border */
   padding: 20px;
-  background-color: #DCE3E4; /* Background color */
+  background-color: #978c7e; /* Background color */
   min-height: 200px; /* Adjust as needed */
+}
+
+.profile-logbook h3 {
+  text-align: center;
+  font-size: 2rem;
 }

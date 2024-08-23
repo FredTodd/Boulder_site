@@ -1,6 +1,5 @@
 import React from 'react';
 import LogbookComponent from './LogbookFeature';
-import './Logbook.css';
 
 const Logbook = () => {
   return (

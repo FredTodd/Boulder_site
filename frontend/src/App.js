@@ -13,6 +13,7 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import RightSidebar from './components/RightSidebar';
 import Friends from './components/Friends'; // Import RightSidebar component
+import '@fontsource/rock-salt'; // Defaults to weight 400
 import './App.css';
 
 const App = () => {

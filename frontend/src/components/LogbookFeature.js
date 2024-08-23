@@ -109,10 +109,10 @@ const LogbookFeature = ({ fetchClimbsUrl }) => {
       <div className="sort-dropdown">
         <label htmlFor="sort">Sort by: </label>
         <select id="sort" value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
-          <option value="grade-asc">Grade (Low to High)</option>
-          <option value="grade-desc">Grade (High to Low)</option>
-          <option value="date-asc">Date (Oldest to Newest)</option>
           <option value="date-desc">Date (Newest to Oldest)</option>
+          <option value="date-asc">Date (Oldest to Newest)</option>
+          <option value="grade-desc">Grade (High to Low)</option>
+          <option value="grade-asc">Grade (Low to High)</option>
         </select>
       </div>
   

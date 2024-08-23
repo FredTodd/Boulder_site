@@ -1,9 +1,13 @@
+body {
+  font-family: "Archivo Narrow";
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: #DCE3E4; /* General backing color */
+  background-color: #424051; /* General backing color */
   border-bottom: 2px solid #424051; /* Secondary color for border */
 }
 
@@ -16,6 +20,10 @@
   width: 100%;
 }
 
+.logo {
+  font-family: 'Rock Salt', cursive;
+}
+
 .header-left {
   display: flex;
   align-items: center;
@@ -25,13 +33,13 @@
 .logo {
   font-size: 1.5rem;
   margin-right: 2rem; /* Adjust the margin to move it closer to the left */
-  color: #424051; /* Secondary color for text */
+  color: white; /* Secondary color for text */
 }
 
 .navbar-container {
   display: flex;
   align-items: center;
-  background-color: #fff;
+  background-color: #567934;
   border: 1px solid #424051; /* Secondary color for border */
   border-radius: 4px;
   padding: 0 1rem;
@@ -59,7 +67,8 @@
   margin-right: 0.5rem;
   width: 100%; /* Ensure it takes the full width available */
   color: #424051; /* Secondary color for text */
-  background-color: #fff; /* White background for input */
+  background-color: #ecdfcd; /* White background for input */
+  font-family: "Archivo Narrow";
 }
 
 .search-bar button {
@@ -69,6 +78,7 @@
   background-color: #567934; /* Highlight color for button */
   color: white;
   cursor: pointer;
+  font-family: "Archivo Narrow";
 }
 
 .search-bar button:hover {

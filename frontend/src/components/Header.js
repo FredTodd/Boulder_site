@@ -14,7 +14,7 @@ const Header = () => {
     <div className="header">
       <div className="header-container">
         <div className="header-left">
-          <div className="logo">LOGO</div>
+          <div className="logo">Foothold</div>
         </div>
         <div className="navbar-container">
           <Navbar />

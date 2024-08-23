@@ -1,11 +1,16 @@
+body {
+  font-family: "Archivo Narrow";
+}
+
 .navbar {
   display: flex;
   gap: 1rem;
+  background-color: #567934;
 }
 
 .navbar a {
   text-decoration: none;
-  color: #424051; /* Secondary color for text */
+  color: white; /* Secondary color for text */
   padding: 0.5rem 1rem;
 }
 

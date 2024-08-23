@@ -1,3 +1,7 @@
+body {
+  font-family: "Archivo Narrow";
+}
+
 .log-climb-container {
     background-color: #DCE3E4; /* General backing color */
     padding: 2rem;

@@ -1,4 +1,7 @@
-/* Center the login container */
+body {
+  font-family: "Archivo Narrow";
+}
+
 .login-container {
     display: flex;
     justify-content: center;

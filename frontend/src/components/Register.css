@@ -1,4 +1,7 @@
-/* Center the register container */
+body {
+  font-family: "Archivo Narrow";
+}
+
 .register-container {
     display: flex;
     justify-content: center;
