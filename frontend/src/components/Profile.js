@@ -9,6 +9,7 @@ const Profile = () => {
   const [bio, setBio] = useState('');
   const [profilePicture, setProfilePicture] = useState('');
   const [error, setError] = useState('');
+  const [totalClimbs, setTotalClimbs] = useState(0);
   const navigate = useNavigate();
 
   const refreshToken = async () => {
@@ -35,7 +36,7 @@ const Profile = () => {
       }
 
       const apiUrl = process.env.REACT_APP_API_URL;
-      const response = await axios.get(`${apiUrl}/auth/profile`, { // Ensure the path is correct
+      const response = await axios.get(`${apiUrl}/auth/profile`, {
         headers: { Authorization: `Bearer ${token}` }
       });
 
@@ -47,7 +48,7 @@ const Profile = () => {
       if (error.response && error.response.status === 401) {
         const newToken = await refreshToken();
         if (newToken) {
-          fetchProfile(); // Retry fetching profile with new token
+          fetchProfile();
         } else {
           setError('Session expired. Please log in again.');
         }
@@ -58,20 +59,45 @@ const Profile = () => {
     }
   }, []);
 
+  const fetchTotalClimbs = useCallback(async () => {
+    try {
+      let token = localStorage.getItem('token');
+      if (!token) {
+        setError('No token found. Please log in.');
+        return;
+      }
+      const apiUrl = `${process.env.REACT_APP_API_URL}/auth/climbs`;
+      const response = await axios.get(apiUrl, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      setTotalClimbs(response.data.length);
+    } catch (error) {
+      console.error('Error fetching total climbs:', error);
+      setError('Error fetching total climbs');
+    }
+  }, []);
+
   useEffect(() => {
     fetchProfile();
-  }, [fetchProfile]);
+    fetchTotalClimbs();
+  }, [fetchProfile, fetchTotalClimbs]);
 
   return (
     <div className="profile-container">
       <div className="profile-info">
         <img src={profilePicture} alt="Profile" />
-        <div>
-          <h2 className="username">{username}</h2> {/* Username with larger font */}
-          <p className="bio">{bio}</p> {/* Bio underneath in smaller font */}
-          <button onClick={() => navigate('/gallery')}>Gallery</button>
-          <button onClick={() => navigate('/update-profile')}>Edit Profile</button>
+        <div className="profile-details">
+          <h2 className="username">{username}</h2>
+          <p className="bio">{bio}</p>
         </div>
+        <div className="climb-counter">
+          <div className="climb-number">{totalClimbs}</div>
+          <div className="climb-text">Boulders</div>
+        </div>
+        <button className="edit-profile-button" onClick={() => navigate('/update-profile')}>
+          Edit Profile
+        </button>
       </div>
       <div className="profile-logbook">
         <h3>Logbook</h3>
