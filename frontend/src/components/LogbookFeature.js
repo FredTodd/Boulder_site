@@ -30,9 +30,10 @@ const LogbookFeature = ({ fetchClimbsUrl }) => {
         console.error('Error fetching climbs:', error);
       }
     };
-
+  
     fetchClimbs();
   }, [fetchClimbsUrl]);
+  
 
   const filterClimbsForChart = () => {
     if (chartFilter === 'both') {

@@ -7,17 +7,29 @@
   }
   
   .friend-item:hover {
-    background-color: #4e6d2f; /* Optional: Add a hover effect */
+    background-color: #4e6d2f;
+  }
+
+  .friend-item:hover p {
+    color: white;
   }
   
   .friend-profile-picture {
-    width: 60px; /* Adjust size as needed */
-    height: 60px; /* Adjust size as needed */
-    border-radius: 50%; /* Makes the image round */
-    margin-right: 10px; /* Space between the picture and the username */
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 10px; /* Creates space between the image and the username */
   }
-
-  .friend-username {
-    font-size: 1.5rem; /* Increase the font size as needed */
+  
+  .friend-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none; /* Remove underline from the link */
+  }
+  
+  .friend-link p {
+    margin: 0; /* Remove margin for the paragraph to align properly */
+    font-size: inherit; /* Inherit the default font size for text */
+    color: #424051;
   }
   

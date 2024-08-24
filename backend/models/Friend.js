@@ -1,6 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const User = require('./User'); 
+const User = require('./User');
 
 const Friend = sequelize.define('Friend', {
   id: {
@@ -27,9 +27,11 @@ const Friend = sequelize.define('Friend', {
   ]
 });
 
-User.hasMany(Friend, { foreignKey: 'user_id' });
-User.hasMany(Friend, { foreignKey: 'friend_id' });
-Friend.belongsTo(User, { foreignKey: 'user_id' });
-Friend.belongsTo(User, { foreignKey: 'friend_id' });
+// Define associations with aliases to avoid conflict
+User.hasMany(Friend, { foreignKey: 'user_id', as: 'userFriends' });
+User.hasMany(Friend, { foreignKey: 'friend_id', as: 'friendFriends' });
+
+Friend.belongsTo(User, { foreignKey: 'user_id', as: 'userDetails' });
+Friend.belongsTo(User, { foreignKey: 'friend_id', as: 'friendDetails' });
 
 module.exports = Friend;

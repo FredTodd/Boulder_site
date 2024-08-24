@@ -10,14 +10,14 @@ const OutdoorClimb = require('./models/OutdoorClimb');
 
 const app = express();
 
-// Middleware
-app.use(cors({ 
-  origin: 'http://localhost:3000', 
-  methods: 'GET,POST,PUT,DELETE', 
-  allowedHeaders: 'Content-Type,Authorization' 
+// Middleware setup
+app.use(cors({
+  origin: 'http://localhost:3000',  // Adjust this if your frontend is hosted elsewhere
+  methods: 'GET,POST,PUT,DELETE',
+  allowedHeaders: 'Content-Type,Authorization'
 }));
-app.use(express.json({ limit: '10kb' })); // Set JSON body limit
-app.use(express.urlencoded({ extended: true, limit: '10kb' })); // Set URL-encoded body limit
+app.use(express.json({ limit: '10kb' }));  // Set JSON body limit
+app.use(express.urlencoded({ extended: true, limit: '10kb' }));  // Set URL-encoded body limit
 
 // Sync database
 sequelize.sync({ force: false }).then(() => {
@@ -26,35 +26,47 @@ sequelize.sync({ force: false }).then(() => {
   console.error('Error creating database & tables:', error);
 });
 
-// Register routes
+// Register auth routes
 app.use('/auth', authRoutes);
-app.use('/friends', friendRoutes); // Register the friend routes
 
-// Routes for logging indoor climbs
-app.post('/climbs/indoor', authMiddleware, async (req, res) => {
-  const { userId } = req.user;
-  const { location, grade, personal_rating, notes, climb_date } = req.body;
-  console.log('Received climb data:', { user_id: userId, location, grade, personal_rating, notes, climb_date }); // Log the received data
+// Register friend routes
+app.use('/friends', friendRoutes);
+
+// Route for fetching all climbs for a specific user (both indoor and outdoor)
+app.get('/climbs/user/:userId', authMiddleware, async (req, res) => {
   try {
-    const climb = await IndoorClimb.create({ user_id: userId, location, grade, personal_rating, notes, climb_date });
-    res.status(201).json(climb);
+    const { userId } = req.params;
+    const indoorClimbs = await IndoorClimb.findAll({ where: { user_id: userId } });
+    const outdoorClimbs = await OutdoorClimb.findAll({ where: { user_id: userId } });
+    const allClimbs = [...indoorClimbs, ...outdoorClimbs];
+    res.json(allClimbs);
   } catch (error) {
-    console.error('Error logging indoor climb:', error);
-    res.status(400).json({ message: 'Error logging indoor climb', error: error.message });
+    console.error('Error fetching climbs:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-// Routes for logging outdoor climbs
-app.post('/climbs/outdoor', authMiddleware, async (req, res) => {
-  const { userId } = req.user;
-  const { location, route_name, grade, personal_rating, notes, climb_date } = req.body;
-  console.log('Received outdoor climb data:', { user_id: userId, location, route_name, grade, personal_rating, notes, climb_date }); // Log the received data
+// Route for fetching indoor climbs by userId
+app.get('/climbs/indoor/:userId', authMiddleware, async (req, res) => {
   try {
-    const climb = await OutdoorClimb.create({ user_id: userId, location, route_name, grade, personal_rating, notes, climb_date });
-    res.status(201).json(climb);
+    const { userId } = req.params;
+    const indoorClimbs = await IndoorClimb.findAll({ where: { user_id: userId } });
+    res.json(indoorClimbs);
   } catch (error) {
-    console.error('Error logging outdoor climb:', error);
-    res.status(400).json({ message: 'Error logging outdoor climb', error: error.message });
+    console.error('Error fetching indoor climbs:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Route for fetching outdoor climbs by userId
+app.get('/climbs/outdoor/:userId', authMiddleware, async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const outdoorClimbs = await OutdoorClimb.findAll({ where: { user_id: userId } });
+    res.json(outdoorClimbs);
+  } catch (error) {
+    console.error('Error fetching outdoor climbs:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 

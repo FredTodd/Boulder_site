@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './Friends.css';
 
 const Friends = () => {
   const [friends, setFriends] = useState([]);
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // Use the useNavigate hook for navigation
 
   useEffect(() => {
     const fetchFriends = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/friends/list`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
+        const response = await axios.get('http://localhost:5001/friends/list', {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
         });
-        setFriends(response.data);
-      } catch (err) {
-        console.error('Error fetching friends list:', err);
+
+        // Ensure that response data is what we expect
+        if (response.data && Array.isArray(response.data)) {
+          setFriends(response.data);
+        } else {
+          setError('Unexpected response format');
+        }
+      } catch (error) {
+        console.error('Error fetching friends list:', error);
         setError('Error fetching friends list');
       }
     };
@@ -26,22 +29,36 @@ const Friends = () => {
     fetchFriends();
   }, []);
 
-  // Function to handle profile view navigation
-  const viewProfile = (friendId) => {
-    navigate(`/user-profile/${friendId}`); // Use friendId to navigate to the friend's profile
-  };
+  if (error) {
+    return <div>{error}</div>;
+  }
 
-  if (error) return <p>{error}</p>;
-  if (friends.length === 0) return <p>No friends yet.</p>;
+  if (friends.length === 0) {
+    return <div>No friends found.</div>;
+  }
 
   return (
-    <div className="friends-list">
-      <h2>Friends</h2>
+    <div>
+      <h2>Friends List</h2>
       <ul>
-        {friends.map((friend) => (
-          <li key={friend.friend_id} onClick={() => viewProfile(friend.friend_id)} className="friend-item">
-            <img src={friend.User.profile_picture} alt={`${friend.User.username}'s profile`} className="friend-profile-picture" />
-            <span className="friend-username">{friend.User.username}</span> {/* Add a class here */}
+        {friends.map((friend, index) => (
+          <li key={index} className="friend-item">
+            {friend.friendDetails ? (
+              <Link to={`/user-profile/${friend.friendDetails.user_id}`} className="friend-link">
+                {friend.friendDetails.profile_picture ? (
+                  <img 
+                    src={friend.friendDetails.profile_picture} 
+                    alt={`${friend.friendDetails.username}'s profile`} 
+                    className="friend-profile-picture"
+                  />
+                ) : (
+                  <p>No profile picture available</p>
+                )}
+                <p>{friend.friendDetails.username}</p> {/* Removed className for styling */}
+              </Link>
+            ) : (
+              <p>Friend details not available</p>
+            )}
           </li>
         ))}
       </ul>
