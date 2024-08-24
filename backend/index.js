@@ -70,6 +70,34 @@ app.get('/climbs/outdoor/:userId', authMiddleware, async (req, res) => {
   }
 });
 
+app.post('/climbs/indoor', authMiddleware, async (req, res) => {
+  const { userId } = req.user;
+  const { location, grade, personal_rating, notes, climb_date } = req.body;
+  console.log('Received climb data:', { user_id: userId, location, grade, personal_rating, notes, climb_date }); // Log the received data
+  try {
+    const climb = await IndoorClimb.create({ user_id: userId, location, grade, personal_rating, notes, climb_date });
+    res.status(201).json(climb);
+  } catch (error) {
+    console.error('Error logging indoor climb:', error);
+    res.status(400).json({ message: 'Error logging indoor climb', error: error.message });
+  }
+});
+
+// Add routes for logging indoor climbs
+app.post('/climbs/outdoor', authMiddleware, async (req, res) => {
+  const { userId } = req.user;
+  const { location, route_name, grade, personal_rating, notes, climb_date } = req.body;
+  console.log('Received outdoor climb data:', { user_id: userId, location, route_name, grade, personal_rating, notes, climb_date }); // Log the received data
+  try {
+    const climb = await OutdoorClimb.create({ user_id: userId, location, route_name, grade, personal_rating, notes, climb_date });
+    res.status(201).json(climb);
+  } catch (error) {
+    console.error('Error logging outdoor climb:', error);
+    res.status(400).json({ message: 'Error logging outdoor climb', error: error.message });
+  }
+});
+
+
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
