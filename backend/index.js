@@ -3,16 +3,21 @@ const cors = require('cors');
 require('dotenv').config();
 const sequelize = require('./config/database');
 const authMiddleware = require('./middleware/authMiddleware');
+const friendRoutes = require('./routes/friendRoutes');
+const authRoutes = require('./routes/authRoutes');
 const IndoorClimb = require('./models/IndoorClimb');
 const OutdoorClimb = require('./models/OutdoorClimb');
-const User = require('./models/User');
 
 const app = express();
 
 // Middleware
-app.use(cors({ origin: 'http://localhost:3000', methods: 'GET,POST,PUT,DELETE', allowedHeaders: 'Content-Type,Authorization' }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(cors({ 
+  origin: 'http://localhost:3000', 
+  methods: 'GET,POST,PUT,DELETE', 
+  allowedHeaders: 'Content-Type,Authorization' 
+}));
+app.use(express.json({ limit: '10kb' })); // Set JSON body limit
+app.use(express.urlencoded({ extended: true, limit: '10kb' })); // Set URL-encoded body limit
 
 // Sync database
 sequelize.sync({ force: false }).then(() => {
@@ -21,11 +26,11 @@ sequelize.sync({ force: false }).then(() => {
   console.error('Error creating database & tables:', error);
 });
 
-// Routes
-const authRoutes = require('./routes/authRoutes');
+// Register routes
 app.use('/auth', authRoutes);
+app.use('/friends', friendRoutes); // Register the friend routes
 
-// Add routes for logging indoor climbs
+// Routes for logging indoor climbs
 app.post('/climbs/indoor', authMiddleware, async (req, res) => {
   const { userId } = req.user;
   const { location, grade, personal_rating, notes, climb_date } = req.body;
@@ -39,7 +44,7 @@ app.post('/climbs/indoor', authMiddleware, async (req, res) => {
   }
 });
 
-// Add routes for logging indoor climbs
+// Routes for logging outdoor climbs
 app.post('/climbs/outdoor', authMiddleware, async (req, res) => {
   const { userId } = req.user;
   const { location, route_name, grade, personal_rating, notes, climb_date } = req.body;

@@ -88,23 +88,61 @@ router.get('/climbs', authMiddleware, async (req, res) => {
   }
 });
 
-// Search Users Endpoint
+
 router.get('/search', authMiddleware, async (req, res) => {
   try {
-    const { username } = req.query; // Get the username from query params
+    const { query } = req.query;
+
     const users = await User.findAll({
       where: {
         username: {
-          [Sequelize.Op.like]: `%${username}%` // Search for usernames containing the query
+          [Sequelize.Op.like]: `%${query}%`
         }
       },
-      attributes: ['id', 'username', 'profile_picture'] // Specify which attributes to return
+      attributes: ['user_id', 'username', 'profile_picture']
     });
+
     res.json(users);
   } catch (error) {
-    console.error('Error searching users:', error);
-    res.status(500).json({ message: 'Server error' });
+    console.error('Error searching for users:', error.message);
+    res.status(500).json({ message: 'Error searching for users' });
   }
 });
+
+router.get('/profile/:userId', authMiddleware, async (req, res) => {
+  const { userId } = req.params;  // Get userId from route parameters
+  console.log(`Fetching profile for userId: ${userId}`); // Log userId
+
+  try {
+    const user = await User.findByPk(userId, {
+      attributes: ['username', 'bio', 'profile_picture']
+    });
+    if (!user) {
+      console.log('User not found');
+      return res.status(404).json({ message: 'User not found' });
+    }
+    console.log('User found:', user);
+    res.json(user);
+  } catch (error) {
+    console.error('Error fetching user profile:', error.message);
+    res.status(500).json({ message: 'Error fetching user profile' });
+  }
+});
+
+
+router.get('/climbs/:userId', authMiddleware, async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const indoorClimbs = await IndoorClimb.findAll({ where: { user_id: userId } });
+    const outdoorClimbs = await OutdoorClimb.findAll({ where: { user_id: userId } });
+    const climbs = [...indoorClimbs, ...outdoorClimbs];
+    res.json(climbs);
+  } catch (error) {
+    console.error('Error fetching user climbs:', error.message);
+    res.status(500).json({ message: 'Error fetching user climbs' });
+  }
+});
+
+
 
 module.exports = router;

@@ -9,6 +9,7 @@ const authMiddleware = (req, res, next) => {
 
   const token = authHeader.split(' ')[1];
   console.log('Received Token:', token); // Log the received token
+  
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       console.log('Invalid token', err); // Log the error
@@ -16,8 +17,10 @@ const authMiddleware = (req, res, next) => {
     }
     console.log('Token Decoded:', decoded); // Log the decoded token
     req.user = decoded;
+    console.log('req.user:', req.user); // Log req.user
     next();
   });
+  
 };
 
 module.exports = authMiddleware;

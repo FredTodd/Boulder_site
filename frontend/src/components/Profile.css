@@ -98,3 +98,22 @@ body {
   text-align: center;
   font-size: 2rem;
 }
+
+.add-friend-button {
+  background-color: #567934;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 20px 0;
+}
+
+.add-friend-button:hover {
+  background-color: #424051;
+}
+
+.add-friend-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

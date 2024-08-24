@@ -5,7 +5,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
   const isAuthenticated = !!localStorage.getItem('token');
 
   return isAuthenticated ? (
-    <Component {...rest} />
+    <Component {...rest} /> // Ensure this passes down all props correctly
   ) : (
     <Navigate to="/login" state={{ message: 'You must log in first' }} />
   );

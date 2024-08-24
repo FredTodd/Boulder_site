@@ -1,0 +1,23 @@
+.friend-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #ecdfcd;
+  }
+  
+  .friend-item:hover {
+    background-color: #4e6d2f; /* Optional: Add a hover effect */
+  }
+  
+  .friend-profile-picture {
+    width: 60px; /* Adjust size as needed */
+    height: 60px; /* Adjust size as needed */
+    border-radius: 50%; /* Makes the image round */
+    margin-right: 10px; /* Space between the picture and the username */
+  }
+
+  .friend-username {
+    font-size: 1.5rem; /* Increase the font size as needed */
+  }
+  
