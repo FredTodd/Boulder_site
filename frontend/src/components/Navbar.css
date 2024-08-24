@@ -15,7 +15,7 @@ body {
 }
 
 .navbar a:hover {
-  background-color: #567934; /* General backing color for hover */
+  background-color: #4e6d2f; /* General backing color for hover */
   border-radius: 4px;
   color: white; /* White text on hover */
 }

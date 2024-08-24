@@ -11,6 +11,8 @@ const FriendProfile = () => {
   const [profilePicture, setProfilePicture] = useState('');
   const [totalClimbs, setTotalClimbs] = useState(0);
   const [error, setError] = useState('');
+  const [isFriend, setIsFriend] = useState(false);
+  const [isOwnProfile, setIsOwnProfile] = useState(false); // New state for checking if the profile is the user's own profile
 
   const fetchUserProfile = useCallback(async () => {
     try {
@@ -55,10 +57,59 @@ const FriendProfile = () => {
     }
   }, [userId]);
 
+  const checkFriendStatus = useCallback(async () => {
+    try {
+      let token = localStorage.getItem('token');
+      if (!token) {
+        setError('No token found. Please log in.');
+        return;
+      }
+
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/friends/status/${userId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      setIsFriend(response.data.isFriend);
+    } catch (error) {
+      console.error('Error checking friend status:', error);
+      setError('Error checking friend status');
+    }
+  }, [userId]);
+
+  const handleAddFriend = async () => {
+    try {
+      let token = localStorage.getItem('token');
+      if (!token) {
+        setError('No token found. Please log in.');
+        return;
+      }
+
+      await axios.post(
+        `${process.env.REACT_APP_API_URL}/friends/add`,
+        { friend_id: userId },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      setIsFriend(true);
+    } catch (error) {
+      console.error('Error adding friend:', error);
+      setError('Error adding friend');
+    }
+  };
+
   useEffect(() => {
     fetchUserProfile();
     fetchTotalClimbs();
-  }, [fetchUserProfile, fetchTotalClimbs]);
+    checkFriendStatus();
+
+    // Check if the profile belongs to the logged-in user
+    const loggedInUserId = localStorage.getItem('userId');
+    if (loggedInUserId && parseInt(loggedInUserId) === parseInt(userId)) {
+      setIsOwnProfile(true);
+    } else {
+      setIsOwnProfile(false);
+    }
+  }, [fetchUserProfile, fetchTotalClimbs, checkFriendStatus, userId]);
 
   return (
     <div className="profile-container">
@@ -73,6 +124,12 @@ const FriendProfile = () => {
           <div className="climb-text">Boulders</div>
         </div>
       </div>
+      {/* Add Friend Button */}
+      {!isOwnProfile && !isFriend && (
+        <button onClick={handleAddFriend} className="add-friend-button">
+          Add Friend
+        </button>
+      )}
       <div className="profile-logbook">
         <h3>Logbook</h3>
         <LogbookFeature fetchClimbsUrl={`${process.env.REACT_APP_API_URL}/climbs/user/${userId}`} />
