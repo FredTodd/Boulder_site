@@ -7,12 +7,12 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    background-color: #978c7e;
   }
   
   /* Style the login box */
   .login-box {
-    background-color: white;
+    background-color: #424051;
     padding: 2rem;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -24,6 +24,7 @@ body {
   .logo {
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    text-align: center;
   }
   
   /* Style the form heading */
@@ -48,11 +49,13 @@ body {
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 4px;
+    background-color: #ecdfcd;
+    font-family: "Archivo Narrow";
   }
   
   /* Style the login button */
   .login-button {
-    background-color: #4CAF50;
+    background-color:#567934;
     color: white;
     padding: 0.5rem 1rem;
     border: none;
@@ -61,14 +64,14 @@ body {
   }
   
   .login-button:hover {
-    background-color: #45a049;
+    background-color: #4e6d2f;
   }
   
   /* Style the register link */
   .register-link {
     display: block;
     margin-top: 1rem;
-    color: #333;
+    color: white;
     text-decoration: none;
   }
   
@@ -82,3 +85,6 @@ body {
     margin-bottom: 1rem;
   }
   
+  .input-group label {
+    color: white;
+  }

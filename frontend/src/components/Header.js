@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from './Navbar';
 import './Header.css';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -14,7 +15,7 @@ const Header = () => {
     <div className="header">
       <div className="header-container">
         <div className="header-left">
-          <div className="logo">Foothold</div>
+          <div className="logo"><Link to="/">FootHold</Link></div>
         </div>
         <div className="navbar-container">
           <Navbar />

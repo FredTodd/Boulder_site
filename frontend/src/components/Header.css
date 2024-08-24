@@ -4,7 +4,7 @@ body {
 
 .header {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   padding: 1rem;
   background-color: #424051; /* General backing color */
@@ -13,27 +13,31 @@ body {
 
 .header-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
   width: 100%;
-}
-
-.logo {
-  font-family: 'Rock Salt', cursive;
 }
 
 .header-left {
   display: flex;
   align-items: center;
-  margin-right: auto; /* Ensure the logo is pushed to the left */
+}
+
+.header-right {
+  display: flex;
+  justify-content: flex-end;
+  flex-grow: 1;
 }
 
 .logo {
+  font-family: 'Rock Salt', cursive;
+  margin-right: 4.5rem; /* Adjust the margin to move it closer to the left */
+  margin-left: 2rem;
+}
+
+.logo a {
   font-size: 1.5rem;
-  margin-right: 2rem; /* Adjust the margin to move it closer to the left */
   color: white; /* Secondary color for text */
+  text-decoration: none;
 }
 
 .navbar-container {
@@ -47,11 +51,6 @@ body {
   max-width: 600px;
 }
 
-.header-right {
-  display: flex;
-  justify-content: flex-end;
-  flex-grow: 1;
-}
 
 .search-bar {
   display: flex;

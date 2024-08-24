@@ -1,17 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const authMiddleware = require('../middleware/authMiddleware');
-const authController = require('../controllers/authController');  // Add this line
+const authController = require('../controllers/authController');
 const User = require('../models/User');
 const IndoorClimb = require('../models/IndoorClimb');
 const OutdoorClimb = require('../models/OutdoorClimb');
+const { Sequelize } = require('sequelize'); // Import Sequelize for the like query
 
 router.post('/register', authController.register);
 router.post('/login', authController.login);
 router.post('/refresh-token', authController.refreshToken);
 router.get('/check-username', authMiddleware, authController.checkUsername);
-
-
 
 // Profile route
 router.get('/profile', authMiddleware, async (req, res) => {
@@ -89,5 +88,23 @@ router.get('/climbs', authMiddleware, async (req, res) => {
   }
 });
 
+// Search Users Endpoint
+router.get('/search', authMiddleware, async (req, res) => {
+  try {
+    const { username } = req.query; // Get the username from query params
+    const users = await User.findAll({
+      where: {
+        username: {
+          [Sequelize.Op.like]: `%${username}%` // Search for usernames containing the query
+        }
+      },
+      attributes: ['id', 'username', 'profile_picture'] // Specify which attributes to return
+    });
+    res.json(users);
+  } catch (error) {
+    console.error('Error searching users:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 module.exports = router;

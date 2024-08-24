@@ -1,15 +1,16 @@
 body {
   font-family: "Archivo Narrow";
+  background-color: #978c7e;
 }
 
 .log-climb-container {
-    background-color: #DCE3E4; /* General backing color */
+    background-color: #ecdfcd; /* General backing color */
     padding: 2rem;
-    border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     max-width: 1000px; /* Increased max-width to make it wider */
     margin: 2rem auto;
+    
   }
   
   .switch-links {
@@ -67,6 +68,7 @@ body {
     margin-bottom: 1rem;
     color: #424051; /* Secondary color for text */
     background-color: #fff; /* White background */
+    font-family: "Archivo Narrow";
   }
   
   .log-climb-container .log-button {
@@ -78,10 +80,11 @@ body {
     border-radius: 4px;
     border: none;
     cursor: pointer;
+    font-family: "Archivo Narrow";
   }
   
   .log-climb-container .log-button:hover {
-    background-color: #455d2a; /* Slightly darker green for hover */
+    background-color: #4e6d2f; /* Slightly darker green for hover */
   }
   
   .log-climb-container .switch-link:hover {
@@ -92,4 +95,15 @@ body {
     width: 100%;
     margin-bottom: 1rem;
   }
+  
+  .form-group p {
+    color: #424051;
+  }
+
+  /*
+  input[type='range'] {
+    -webkit-appearance: none;
+    background-color:  #567934;
+  }
+  */
   

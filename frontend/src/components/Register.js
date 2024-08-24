@@ -30,7 +30,7 @@ const Register = () => {
   return (
     <div className="register-container">
       <div className="register-box">
-        <div className="logo">LOGO</div>
+        <div className="logo">FootHold</div>
         <h2>Register</h2>
         {error && <p className="error-message">{error}</p>}
         <form onSubmit={handleSubmit}>
