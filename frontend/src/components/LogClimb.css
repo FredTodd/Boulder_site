@@ -4,11 +4,11 @@ body {
 }
 
 .log-climb-container {
-    background-color: #ecdfcd; /* General backing color */
+    background-color: #ecdfcd;
     padding: 2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
-    max-width: 1000px; /* Increased max-width to make it wider */
+    max-width: 1000px;
     margin: 2rem auto;
     
   }
@@ -24,7 +24,7 @@ body {
     padding: 10px 20px;
     text-decoration: none;
     color: white;
-    background-color: #567934; /* Default green */
+    background-color: #567934;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -33,30 +33,30 @@ body {
   }
   
   .active-button {
-    background-color: #424051; /* Dark grey when active */
+    background-color: #424051;
   }
   
   .inactive-button {
-    background-color: #567934; /* Green when inactive */
+    background-color: #567934;
   }
   
   .button:hover {
-    background-color: #424051; /* Dark grey on hover */
+    background-color: #424051;
   }
   
   .log-climb-container h1 {
-    color: #424051; /* Secondary color for text */
+    color: #424051;
     margin-bottom: 1rem;
   }
   
   .log-climb-container .form-group {
     margin-bottom: 1rem;
-    text-align: left; /* Align labels to the left */
+    text-align: left;
   }
   
   .log-climb-container label {
     display: block;
-    color: #424051; /* Secondary color for text */
+    color: #424051;
     margin-bottom: 0.5rem;
   }
   
@@ -66,15 +66,15 @@ body {
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-bottom: 1rem;
-    color: #424051; /* Secondary color for text */
-    background-color: #fff; /* White background */
+    color: #424051;
+    background-color: #fff;
     font-family: "Archivo Narrow";
   }
   
   .log-climb-container .log-button {
     display: inline-block;
     padding: 0.5rem 1rem;
-    background-color: #567934; /* Highlight color */
+    background-color: #567934;
     color: white;
     text-decoration: none;
     border-radius: 4px;
@@ -84,7 +84,7 @@ body {
   }
   
   .log-climb-container .log-button:hover {
-    background-color: #4e6d2f; /* Slightly darker green for hover */
+    background-color: #4e6d2f;
   }
   
   .log-climb-container .switch-link:hover {

@@ -10,7 +10,6 @@ body {
     background-color: #978c7e;
   }
   
-  /* Style the login box */
   .login-box {
     background-color: #424051;
     padding: 2rem;
@@ -20,20 +19,17 @@ body {
     width: 300px;
   }
   
-  /* Style the logo */
   .logo {
     font-size: 1.5rem;
     margin-bottom: 1rem;
     text-align: center;
     color: white;
   }
-  
-  /* Style the form heading */
+
   .login-box h2 {
     margin-bottom: 1rem;
   }
-  
-  /* Style input groups */
+
   .input-group {
     margin-bottom: 1rem;
     text-align: left;
@@ -53,8 +49,7 @@ body {
     background-color: #ecdfcd;
     font-family: "Archivo Narrow";
   }
-  
-  /* Style the login button */
+
   .login-button {
     background-color:#567934;
     color: white;
@@ -68,7 +63,6 @@ body {
     background-color: #4e6d2f;
   }
   
-  /* Style the register link */
   .register-link {
     display: block;
     margin-top: 1rem;
@@ -79,8 +73,7 @@ body {
   .register-link:hover {
     text-decoration: underline;
   }
-  
-  /* Style the error message */
+
   .error-message {
     color: red;
     margin-bottom: 1rem;

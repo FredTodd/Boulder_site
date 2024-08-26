@@ -3,9 +3,9 @@ body {
 }
 
 .sidebar {
-  width: 200px;
+  width: 20%;
   padding: 1rem;
-  background-color: #978c7e; /* Dark grey background */
+  background-color: #978c7e;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -15,10 +15,9 @@ body {
 
 .auth-section, .feed-section {
   margin-bottom: 1rem;
-  border: 1px solid #424051; /* Secondary color for border */
   padding: 1rem;
   border-radius: 4px;
-  background-color: #424051; /* General backing color */
+  background-color: #424051;
   width: 100%;
   box-sizing: border-box;
 }
@@ -30,8 +29,8 @@ body {
   padding: 0.5rem;
   text-align: center;
   text-decoration: none;
-  color: white; /* White text for buttons */
-  background-color: #567934; /* Highlight color for background */
+  color: white;
+  background-color: #567934;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -47,7 +46,7 @@ body {
 }
 
 .auth-button:hover, .user-options a:hover, .user-options button:hover {
-  background-color: #455d2a; /* Slightly darker green for hover */
+  background-color: #455d2a;
 }
 
 .user-options {
@@ -58,6 +57,10 @@ body {
 
 .feed-section p {
   margin: 0.5rem 0;
-  color: white; /* White text for feed section */
+  color: white;
   font-size: 1rem;
+}
+
+.feed-section, .climb-text {
+  color: white;
 }

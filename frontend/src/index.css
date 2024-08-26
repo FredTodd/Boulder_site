@@ -3,8 +3,8 @@ body {
   font-family: "Archivo Narrow";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #c8dab5; /* General backing color */
-  color: #424051; /* Secondary color for text */
+  background-color: #c8dab5;
+  color: #424051;
 }
 
 code {
@@ -13,7 +13,7 @@ code {
 }
 
 a {
-  color: #567934; /* Highlight color for links */
+  color: #567934;
   text-decoration: none;
 }
 
@@ -22,7 +22,7 @@ a:hover {
 }
 
 button {
-  background-color: #567934; /* Highlight color for buttons */
+  background-color: #567934;
   color: white;
   border: none;
   border-radius: 4px;
@@ -31,5 +31,5 @@ button {
 }
 
 button:hover {
-  background-color: #455d2a; /* Slightly darker green for hover state */
+  background-color: #455d2a;
 }

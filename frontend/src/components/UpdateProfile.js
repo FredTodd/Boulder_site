@@ -8,9 +8,10 @@ const UpdateProfile = () => {
   const [bio, setBio] = useState('');
   const [profilePicture, setProfilePicture] = useState('');
   const [error, setError] = useState('');
-  const [originalUsername, setOriginalUsername] = useState(''); // Track the original username
+  const [originalUsername, setOriginalUsername] = useState('');
   const navigate = useNavigate();
 
+  // Fetch the user's current profile information on component mount
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -27,7 +28,7 @@ const UpdateProfile = () => {
 
         const { username, bio, profile_picture } = response.data;
         setUsername(username || '');
-        setOriginalUsername(username || ''); // Set the original username
+        setOriginalUsername(username || ''); // Set the original username state for comparison
         setBio(bio || '');
         setProfilePicture(profile_picture || '');
       } catch (error) {
@@ -39,6 +40,7 @@ const UpdateProfile = () => {
     fetchProfile();
   }, []);
 
+  // Handle form submission for updating profile
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -50,7 +52,7 @@ const UpdateProfile = () => {
 
       const apiUrl = process.env.REACT_APP_API_URL;
 
-      // Only check username uniqueness if it has changed
+      // Only check for username uniqueness if it has been changed
       if (username !== originalUsername) {
         const checkResponse = await axios.get(`${apiUrl}/auth/check-username`, {
           params: { username },
@@ -63,6 +65,7 @@ const UpdateProfile = () => {
         }
       }
 
+      // Update the user's profile information
       await axios.put(`${apiUrl}/auth/profile`, { username, bio, profile_picture: profilePicture }, {
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -77,27 +80,42 @@ const UpdateProfile = () => {
 
   return (
     <div className="update-profile-container">
-      <h1 className="update-profile-title">Update Profile</h1>
-      <form onSubmit={handleSubmit} className="update-profile-form">
+      <h1 className="update-profile-title">Update Profile</h1> 
+      <form onSubmit={handleSubmit} className="update-profile-form"> 
         <div className="update-profile-group">
           <label className="update-profile-label">Username:</label>
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} className="update-profile-input" />
+          <input 
+            type="text" 
+            value={username} 
+            onChange={(e) => setUsername(e.target.value)} 
+            className="update-profile-input" 
+          />
         </div>
         <div className="update-profile-group">
           <label className="update-profile-label">Bio:</label>
-          <input type="text" value={bio} onChange={(e) => setBio(e.target.value)} maxLength={150} className="update-profile-input" />
-          <p className="character-count">{bio.length}/150 characters</p>
+          <input 
+            type="text" 
+            value={bio} 
+            onChange={(e) => setBio(e.target.value)} 
+            maxLength={150} // Set maximum character limit for bio
+            className="update-profile-input" 
+          />
+          <p className="character-count">{bio.length}/150 characters</p> {/* Show  it */}
         </div>
         <div className="update-profile-group">
           <label className="update-profile-label">Profile Picture URL:</label>
-          <input type="text" value={profilePicture} onChange={(e) => setProfilePicture(e.target.value)} className="update-profile-input" />
+          <input 
+            type="text" 
+            value={profilePicture} 
+            onChange={(e) => setProfilePicture(e.target.value)} 
+            className="update-profile-input" 
+          />
         </div>
         {error && <p className="update-profile-error">{error}</p>}
         <button type="submit" className="update-profile-button">Update Profile</button>
       </form>
     </div>
   );
-  
 };
 
 export default UpdateProfile;

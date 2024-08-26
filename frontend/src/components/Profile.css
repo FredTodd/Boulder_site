@@ -11,12 +11,12 @@ body {
 }
 
 .profile-info {
-  border: 2px solid #424051; /* Dark grey border */
+  border: 2px solid #424051;
   padding: 20px;
-  background-color: #ecdfcd; /* Background color */
+  background-color: #ecdfcd;
   display: flex;
   align-items: center;
-  gap: 20px; /* Space between image and text */
+  gap: 20px;
   position: relative;
   justify-content: flex-start;
 }
@@ -32,21 +32,21 @@ body {
 .profile-details {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* Space between text and buttons */
-  max-width: 50%; /* Limit the width of the bio section */
+  gap: 10px;
+  max-width: 50%;
 }
 
 .username {
-  font-size: 2rem; /* Larger font size for the username */
+  font-size: 2rem;
   font-weight: bold;
-  margin: 0; /* Remove margin */
-  color: #424051; /* Dark grey color */
+  margin: 0; 
+  color: #424051; 
 }
 
 .bio {
-  font-size: 18px; /* Slightly smaller font size for the bio */
-  margin: 5px 0 10px 0; /* Adjust margins for spacing */
-  color: #424051; /* Dark grey color */
+  font-size: 18px;
+  margin: 5px 0 10px 0; 
+  color: #424051; 
 }
 
 .climb-counter {
@@ -54,21 +54,21 @@ body {
   margin-top: 10px;
   position: absolute;
   top: 40px;
-  right: 10px; /* Adjust this value to align with the edit profile button */
+  right: 10px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end; /* Aligns the counter to the right */
+  align-items: flex-end;
 }
 
 .climb-number {
-  font-size: 2em; /* Larger font size for the number */
+  font-size: 2em;
   font-weight: bold;
-  line-height: 1em; /* Adjust line-height to bring the text closer together */
+  line-height: 1em;
 }
 
 .climb-text {
-  font-size: 1.5rem; /* Smaller font size for the text */
-  color: #666; /* Optional: change color */
+  font-size: 1.5rem;
+  color: #666;
 }
 
 .edit-profile-button {
@@ -90,8 +90,8 @@ body {
 
 .profile-logbook {
   padding: 20px;
-  background-color: #978c7e; /* Background color */
-  min-height: 200px; /* Adjust as needed */
+  background-color: #978c7e;
+  min-height: 200px;
 }
 
 .profile-logbook h3 {

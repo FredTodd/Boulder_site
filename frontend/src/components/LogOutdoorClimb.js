@@ -9,40 +9,41 @@ const allGrades = [
 ];
 
 const LogOutdoorClimb = () => {
-  const [location, setLocation] = useState('');
-  const [routeName, setRouteName] = useState('');
-  const [grade, setGrade] = useState(0); // Initialize as integer for 'VB'
-  const [personalRating, setPersonalRating] = useState(5);
-  const [notes, setNotes] = useState('');
-  const maxChars = 200;
-  const [date, setDate] = useState('');
-  const navigate = useNavigate();
+  const [location, setLocation] = useState(''); // State for location input
+  const [routeName, setRouteName] = useState(''); // State for route name input
+  const [grade, setGrade] = useState(0); // State for grade input, initialized as 0 for 'VB'
+  const [personalRating, setPersonalRating] = useState(5); // State for personal rating input
+  const [notes, setNotes] = useState(''); // State for notes input
+  const maxChars = 200; // Maximum character limit for notes
+  const [date, setDate] = useState(''); // State for date input
+  const navigate = useNavigate(); // Hook for navigation
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault(); // Prevent default form submission behavior
     const climbData = { 
       location, 
       route_name: routeName, 
-      grade: grade, // No need to call gradeToInt again, it's already an integer
+      grade, // Grade is already an integer
       personal_rating: personalRating, 
       notes, 
       climb_date: date 
     };
     try {
-      await logOutdoorClimb(climbData);
-      navigate('/profile');
+      await logOutdoorClimb(climbData); // Log the outdoor climb using the provided function
+      navigate('/profile'); // Navigate to the user's profile upon successful logging
     } catch (error) {
-      console.error('Error logging outdoor climb:', error);
+      console.error('Error logging outdoor climb:', error); // Log any errors
     }
   };
 
   const handleNotesChange = (e) => {
-    setNotes(e.target.value);
+    setNotes(e.target.value); // Update notes state with the input value
   };
 
   return (
     <div className="log-climb-container">
       <div className="switch-links">
+        {/* Navigation links for switching between indoor and outdoor climb logging */}
         <Link to="/log-indoor-climb" className="button inactive-button">Indoor</Link>
         <Link to="/log-outdoor-climb" className="button active-button">Outdoor</Link>
       </div>
@@ -70,16 +71,17 @@ const LogOutdoorClimb = () => {
           <label>Grade</label>
           <select 
             value={grade} 
-            onChange={(e) => setGrade(parseInt(e.target.value, 10))} // Convert to integer
+            onChange={(e) => setGrade(parseInt(e.target.value, 10))} // Convert selected value to an integer
             required
           >
             {allGrades.map((g, index) => (
-              <option key={g} value={index}>{g}</option> // Use index as value (integer)
+              <option key={g} value={index}>{g}</option> // Map each grade to an option
             ))}
           </select>
         </div>
         <div className="form-group">
           <label>Personal Rating</label>
+          {/* Input for selecting personal rating, displayed as a range slider */}
           <input 
             type="range" 
             min="1" 
@@ -88,7 +90,7 @@ const LogOutdoorClimb = () => {
             onChange={(e) => setPersonalRating(e.target.value)} 
             required 
           />
-          <span>{personalRating}</span>
+          <span>{personalRating}</span> {/* Display the selected personal rating */}
         </div>
         <div className="form-group">
           <label>Notes</label>
@@ -96,12 +98,12 @@ const LogOutdoorClimb = () => {
             id="notes"
             value={notes}
             onChange={handleNotesChange}
-            maxLength={maxChars}
+            maxLength={maxChars} // Limit the maximum characters allowed in the textarea
             rows="4"
             cols="50"
             required 
           />
-          <p>{notes.length}/{maxChars} characters</p>
+          <p>{notes.length}/{maxChars} characters</p> {/* Display character count for notes */}
         </div>
         <div className="form-group">
           <label>Date</label>
@@ -112,7 +114,7 @@ const LogOutdoorClimb = () => {
             required 
           />
         </div>
-        <button type="submit" className="log-button">Log Climb</button>
+        <button type="submit" className="log-button">Log Climb</button> {/* Submit button for the form */}
       </form>
     </div>
   );

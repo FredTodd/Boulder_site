@@ -10,12 +10,12 @@ body {
 
 .navbar a {
   text-decoration: none;
-  color: white; /* Secondary color for text */
+  color: white;
   padding: 0.5rem 1rem;
 }
 
 .navbar a:hover {
-  background-color: #4e6d2f; /* General backing color for hover */
+  background-color: #4e6d2f;
   border-radius: 4px;
-  color: white; /* White text on hover */
+  color: white;
 }

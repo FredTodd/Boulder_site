@@ -3,22 +3,34 @@ body {
 }
 
 .right-sidebar {
-    width: 250px;
+    width: 20%;
     padding: 1rem;
     background-color: #978c7e;;
     height: auto;
-    overflow-y: auto; /* Allow vertical scrolling if content overflows */
+    overflow-y: auto;
   }
   
   .right-sidebar-content {
-    border: 1px solid #424051; /* Secondary color for border */
     padding: 1rem;
     border-radius: 4px;
     background-color: #424051;
-    width: 100%; /* Ensure sections take full width of the sidebar */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    width: 100%;
+    box-sizing: border-box;
+    color: white;
+  }
+
+
+  .right-sidebar-content {
+    padding: 20px;
   }
   
-  h2, p {
-    color: white; /* Secondary color for text */
+  .olympic-standings-list {
+    list-style-type: none;
+    padding: 0;
   }
+  
+  .olympic-standings-list li {
+    margin-bottom: 10px;
+    font-size: 16px;
+  }
+  

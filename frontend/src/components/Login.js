@@ -5,22 +5,23 @@ import AuthContext from '../contexts/AuthContext';
 import './Login.css'; // Import the CSS file
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const { login } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const location = useLocation();
+  const [email, setEmail] = useState(''); // State for email input
+  const [password, setPassword] = useState(''); // State for password input
+  const [error, setError] = useState(''); // State for error messages
+  const { login } = useContext(AuthContext); // Get login function from AuthContext
+  const navigate = useNavigate(); // Hook for navigation
+  const location = useLocation(); // Hook for getting current route location
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault(); // Prevent default form submission behavior
     try {
+      // Send login request to the backend
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, { email, password });
-      login(response.data.token); // Update the authentication context
-      const from = location.state?.from?.pathname || '/';
+      login(response.data.token); // Update the authentication context with the received token
+      const from = location.state?.from?.pathname || '/'; // Redirect user to intended route or homepage
       navigate(from);
     } catch (error) {
-      setError('Invalid email or password');
+      setError('Invalid email or password'); // Set error message if login fails
     }
   };
 
@@ -29,7 +30,7 @@ const Login = () => {
       <div className="login-box">
         <div className="logo">FootHold</div>
         <h2>Sign in</h2>
-        {error && <p className="error-message">{error}</p>}
+        {error && <p className="error-message">{error}</p>} {/* Display error message if there is one */}
         <form onSubmit={handleSubmit}>
           <div className="input-group">
             <label>Email</label>
@@ -42,11 +43,10 @@ const Login = () => {
           <button type="submit" className="login-button">Sign in</button>
         </form>
         <hr />
-        <Link to="/register" className="register-link">New User? Register</Link>
+        <Link to="/register" className="register-link">New User? Register</Link> {/* Link to the registration page */}
       </div>
     </div>
   );
 };
 
 export default Login;
-

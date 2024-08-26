@@ -24,7 +24,7 @@ body {
   flex-direction: column;
   gap: 15px;
   margin-bottom: 20px;
-  border: 2px solid #424051; /* Dark grey border */
+  border: 2px solid #424051;
 }
 
 .post-title {
@@ -63,22 +63,21 @@ body {
 
 .post-body {
   font-size: 16px;
-  color: #666;
+  color: #424051;
 }
 
 .post-image {
-  max-width: 100%;  /* Ensures the image scales with the container */
-  max-height: 450px; /* Limits the maximum height of the image */
-  width: 800px;      /* Ensures the image matches the width of the video */
-  height: 450px;     /* Ensures consistent height with the video */
-  object-fit: cover; /* Ensures the image covers the entire container */
+  max-width: 100%;
+  max-height: 450px;
+  width: 800px; 
+  height: 450px;
+  object-fit: cover;
   border-radius: 8px;
   display: block;
-  margin: 0 auto;    /* Center the image horizontally */
+  margin: 0 auto;
   cursor: pointer;
 }
 
-/* Optional: Hover effect */
 .post-image:hover {
-  opacity: 0.8;
+  cursor: auto;
 }

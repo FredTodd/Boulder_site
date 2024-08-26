@@ -22,16 +22,16 @@ const Friend = sequelize.define('Friend', {
   indexes: [
     {
       unique: true,
-      fields: ['user_id', 'friend_id'], // Enforce unique friendships
+      fields: ['user_id', 'friend_id'],
     }
   ]
 });
 
 // Define associations with aliases to avoid conflict
-User.hasMany(Friend, { foreignKey: 'user_id', as: 'userFriends' });
-User.hasMany(Friend, { foreignKey: 'friend_id', as: 'friendFriends' });
+User.hasMany(Friend, { foreignKey: 'user_id', as: 'userFriends' }); // User associated with many Friends
+User.hasMany(Friend, { foreignKey: 'friend_id', as: 'friendFriends' }); // User associated with many Friends as friends?? (hard to explain)
 
-Friend.belongsTo(User, { foreignKey: 'user_id', as: 'userDetails' });
-Friend.belongsTo(User, { foreignKey: 'friend_id', as: 'friendDetails' });
+Friend.belongsTo(User, { foreignKey: 'user_id', as: 'userDetails' }); // Friend belongs to User
+Friend.belongsTo(User, { foreignKey: 'friend_id', as: 'friendDetails' }); // Friend belongs to User as friend
 
 module.exports = Friend;

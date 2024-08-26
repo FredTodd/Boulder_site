@@ -4,12 +4,12 @@ body {
 
 .logbook-page {
     padding: 20px;
-    background-color: #978c7e; /* Background color */
-    min-height: 200px; /* Adjust as needed */
+    background-color: #978c7e;
+    min-height: 200px;
 }
 
 .chart-container {
-    border: 2px solid #424051; /* Dark grey border */
+    border: 2px solid #424051;
     padding: 20px;
     background-color: #ecdfcd;
     font-family: "Archivo Narrow";
@@ -65,9 +65,9 @@ body {
     gap: 10px;
     padding: 20px;
     border-radius: 8px;
-    overflow-y: visible !important; /* Ensure overflow is visible */
-    height: auto !important; /* Force auto height */
-    max-height: none !important; /* Ensure no max-height constraints */
+    overflow-y: visible !important;
+    height: auto !important;
+    max-height: none !important;
     color: white;
     justify-content: center;
     align-items: center;
