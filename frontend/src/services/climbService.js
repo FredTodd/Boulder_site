@@ -21,7 +21,7 @@ axiosInstance.interceptors.response.use(
         const { data } = await axiosInstance.post('/auth/refresh-token', { refreshToken });
         localStorage.setItem('token', data.token);
         axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
-        originalRequest.headers['Authorization'] = `Bearer ${data.token}`; // Ensure original request uses new token
+        originalRequest.headers['Authorization'] = `Bearer ${data.token}`;
         return axiosInstance(originalRequest);
       } catch (refreshError) {
         console.error('Error refreshing token:', refreshError);

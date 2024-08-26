@@ -30,7 +30,7 @@ const User = sequelize.define('User', {
   },
 }, {
   tableName: 'Users',
-  timestamps: false,  // Add this line to remove timestamps
+  timestamps: false,
 });
 
 module.exports = User;

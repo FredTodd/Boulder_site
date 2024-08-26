@@ -54,7 +54,7 @@ body {
   }
   
   .update-profile-error {
-    color: #d9534f !important; /* overides global styling */
+    color: #d9534f !important;
     font-weight: bold;
     text-align: center;
   }

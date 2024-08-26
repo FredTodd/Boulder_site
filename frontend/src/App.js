@@ -13,7 +13,7 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import RightSidebar from './components/RightSidebar';
 import Friends from './components/Friends';
-import FriendProfile from './components/FriendProfile'; // Component to display the profile of a friend
+import FriendProfile from './components/FriendProfile';
 import '@fontsource/rock-salt';
 import './App.css';
 
@@ -37,7 +37,7 @@ const App = () => {
             <Route path="/log-outdoor-climb" element={<ProtectedRoute component={LogOutdoorClimb} />} />
             <Route path="/logbook" element={<ProtectedRoute component={Logbook} />} />
             <Route path="/friends" element={<ProtectedRoute component={Friends} />} />
-            <Route path="/user-profile/:userId" element={<ProtectedRoute component={FriendProfile} />} /> {/* Correct route for user profiles */}
+            <Route path="/user-profile/:userId" element={<ProtectedRoute component={FriendProfile} />} /> 
           </Routes>
         </div>
         {location.pathname === '/' && <RightSidebar />}
