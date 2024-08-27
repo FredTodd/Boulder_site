@@ -110,7 +110,7 @@ const Sidebar = () => {
           <div className="user-options">
             <Link to="/profile">Profile</Link>
             <Link to="/log-indoor-climb">Add Ascent</Link>
-            <Link to="/add-friends">Add Friends</Link>
+            <Link to="/friends">Friends</Link>
             <Link to="/logbook">My Logbook</Link>
             <button onClick={logout}>Logout</button>
           </div>
@@ -125,11 +125,24 @@ const Sidebar = () => {
         )}
       </div>
       <div className="feed-section">
-        {/* Display total number of climbs */}
-        <div className="climb-number">{totalClimbs}</div>
-        <div className="climb-text">Boulders</div>
-        <p>Global Leaderboard</p>
-      </div>
+  {/* Display total number of climbs if authenticated */}
+  {isAuthenticated ? (
+    <>
+      {/* Use React Fragment to wrap the elements */}
+      <div className="climb-number">{totalClimbs}</div>
+      <div className="climb-text">Boulders</div>
+      <p>Global Leaderboard</p>
+    </>
+  ) : (
+    !hideAuthOptions && (
+      <>
+        {/* Use React Fragment to wrap the elements */}
+        <div className="climb-text">Global Leaderboard</div>
+      </>
+    )
+  )}
+</div>
+
     </div>
   );
 };

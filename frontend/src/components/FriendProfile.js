@@ -115,14 +115,14 @@ const FriendProfile = () => {
   return (
     <div className="profile-container">
       <div className="profile-info">
-        <img src={profilePicture} alt="Profile" />  // Display profile picture
+        <img src={profilePicture} alt="Profile" />
         <div className="profile-details">
-          <h2 className="username">{username}</h2>  // Display username
-          <p className="bio">{bio}</p>  // Display bio
+          <h2 className="username">{username}</h2>
+          <p className="bio">{bio}</p>
         </div>
         <div className="climb-counter">
-          <div className="climb-number">{totalClimbs}</div>  // Display total climbs
-          <div className="climb-text">Boulders</div>  // Display text for climbs
+          <div className="climb-number">{totalClimbs}</div>
+          <div className="climb-text">Boulders</div>
         </div>
       </div>
       {/* Add Friend Button */}
@@ -133,9 +133,9 @@ const FriendProfile = () => {
       )}
       <div className="profile-logbook">
         <h3>Logbook</h3>
-        <LogbookFeature fetchClimbsUrl={`${process.env.REACT_APP_API_URL}/climbs/user/${userId}`} />  // Display logbook feature
+        <LogbookFeature fetchClimbsUrl={`${process.env.REACT_APP_API_URL}/climbs/user/${userId}`} />
       </div>
-      {error && <p className="error-message">{error}</p>}  // Display error message if any
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 };

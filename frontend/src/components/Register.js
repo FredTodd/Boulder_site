@@ -1,31 +1,26 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react'; // Removed useContext since it's not needed now
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
-import AuthContext from '../contexts/AuthContext';
 import './Register.css';
 
 const Register = () => {
   // State variables for email, username, password, and error messages
-  const [email, setEmail] = useState(''); 
+  const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  
-  // Access the login function from AuthContext to update auth state
-  const { login } = useContext(AuthContext);
   
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent default form submission
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, {
+      await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, {
         email,
         username,
         password,
       });
-      login(response.data.token); // Automatically log in user after successful registration
-      navigate('/');
+      navigate('/login'); // Navigate to login page after successful registration
     } catch (error) {
       setError('Error registering user'); // Set error message on registration failure
     }
